@@ -1,0 +1,5 @@
+devsecops:
+  name: DevSecOps Pipeline
+  title: Security CI/CD Demo
+  url: https://github.com/illumidragui/devsecops-app
+  image_url: /img/shield.svg

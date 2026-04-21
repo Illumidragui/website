@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[285],{6510:s=>{s.exports=JSON.parse('{"label":"cicd","permalink":"/blog/tags/cicd","allTagsPath":"/blog/tags","count":1}')}}]);

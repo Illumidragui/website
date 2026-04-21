@@ -1,0 +1,229 @@
+{
+  "name": "DevSecOps Pipeline",
+  "title": "SECURITY-FIRST CI/CD DEMO",
+  "github": "https://github.com/your-user/devsecops-app",
+  "badges": [
+    {
+      "url": "https://github.com/gitleaks/gitleaks",
+      "image": "https://img.shields.io/badge/Gitleaks-Secret%20Scanning-brightgreen?style=for-the-badge&logo=git&logoColor=white",
+      "alt": "Gitleaks Secret Scanning"
+    },
+    {
+      "url": "https://sonarcloud.io",
+      "image": "https://img.shields.io/badge/SonarCloud-SAST-orange?style=for-the-badge&logo=sonarcloud&logoColor=white",
+      "alt": "SonarCloud SAST"
+    },
+    {
+      "url": "https://snyk.io",
+      "image": "https://img.shields.io/badge/Snyk-SCA-blueviolet?style=for-the-badge&logo=snyk&logoColor=white",
+      "alt": "Snyk SCA"
+    },
+    {
+      "url": "https://aquasecurity.github.io/trivy",
+      "image": "https://img.shields.io/badge/Trivy-Container%20Scan-blue?style=for-the-badge&logo=aqua&logoColor=white",
+      "alt": "Trivy Container Scanning"
+    },
+    {
+      "url": "https://www.zaproxy.org",
+      "image": "https://img.shields.io/badge/OWASP%20ZAP-DAST-red?style=for-the-badge&logoColor=white",
+      "alt": "OWASP ZAP DAST"
+    }
+  ],
+  "description": [
+    "A production-ready DevSecOps pipeline integrating 5 security tools across every stage of the CI/CD lifecycle — from secret detection to dynamic runtime attack simulation.",
+    "Built on GitHub Actions, each push to main triggers: Gitleaks (secret scanning), SonarCloud (SAST), Snyk (SCA), Trivy (container image scanning), and OWASP ZAP (DAST) — all gates must pass before deployment.",
+    "The Flask application enforces 5 HTTP security headers, runs as a hardened non-root container, and generates a consolidated security report as a pipeline artifact on every commit."
+  ],
+  "projectImage": {
+    "src": "img/shield.svg",
+    "alt": "DevSecOps Security Shield"
+  },
+  "learnMoreLink": {
+    "url": "/docs/pipeline"
+  },
+  "experiences": [
+    {
+      "type": "work",
+      "date": "Aug. 2023 - Nov. 2025",
+      "title": "DevSecOps Engineer",
+      "subtitle": "Merabytes",
+      "description": [
+        "> Development and implementation of a SaaS platform for automating internal and external security audits, integrating reconnaissance, anomalous behavior detection and AI-powered report generation.",
+        "- Development and maintenance of cloud environments using Terraform, automating resource provisioning and ensuring consistency across environments.",
+        "- Implementation of CI/CD pipelines with GitHub Actions integrating SAST (SonarQube), SCA (Snyk) and DAST (OWASP ZAP), ensuring no code with critical vulnerabilities reaches production.",
+        "- Containerization and hardening of Docker images, reducing the attack surface and final image size through Multi-stage builds.",
+        "- Secrets management with Azure Key Vault and AWS IAM, enforcing access policies and least privilege principle across pipelines and cloud environments.",
+        "- Development of Bash, Python and PowerShell scripts to automate administration, monitoring and deployment tasks across cloud and on-premise environments.",
+        "- Contributed to ENS High and ISO 27001 compliance by implementing key technical controls: least privilege access management, corporate VPN (Zero Trust) and a security maturity roadmap.",
+        "- Stack: Terraform, GitHub Actions, SonarQube, Snyk, OWASP ZAP, Docker, Azure Key Vault, AWS IAM, Kubernetes"
+      ],
+      "description_es": [
+        "> En Merabytes diseñé la infraestructura de seguridad de una plataforma SaaS desde cero. Con bagaje de pentester, sabía exactamente qué controles importaban y por qué.",
+        "- Cloud & Infra: Terraform, Kubernetes, ArgoCD, Docker",
+        "- CI/CD: GitHub Actions, SonarQube (SAST), Snyk (SCA), OWASP ZAP (DAST)",
+        "- Compliance: ENS Alta, ISO 27001, Azure Key Vault, AWS IAM"
+      ]
+    },
+    {
+      "type": "work",
+      "date": "Nov. 2021 - Jul. 2023",
+      "title": "Pentester",
+      "subtitle": "BMM Testlabs",
+      "description": [
+        "> Execution of penetration tests (black-box, grey-box, and white-box) on web applications, mobile apps, and systems, identifying exploitable vulnerabilities in real environments.",
+        "Identification and exploitation of vulnerabilities, developing proof-of-concepts (PoC) and documenting attack vectors to support remediation efforts.",
+        "Conducting security testing on Android, iOS, macOS, and Windows applications, using both static and dynamic analysis techniques.",
+        "Participation in technical audits and compliance projects, including PCI DSS (ASV), vulnerability validation, and remediation verification.",
+        "Preparation of detailed technical reports using OWASP methodologies and the MITRE ATT&CK framework, providing mitigation recommendations aligned with business objectives.",
+        "- Methodologies: OWASP, MITRE ATT&CK, PCI DSS (ASV)"
+      ],
+      "description_es": [
+        "> Dos años ejecutando ataques reales me enseñaron cómo piensa un atacante. Trabajé en el espectro completo en aplicaciones web, móviles y entornos de compliance.",
+        "- Testing: Black-box, Grey-box, White-box",
+        "- Plataformas: Web, iOS, Android, macOS, Windows",
+        "- Metodologías: OWASP, MITRE ATT&CK, PCI DSS (ASV)"
+      ]
+    },
+    {
+      "type": "work",
+      "date": "Jan. 2019 - Oct. 2021",
+      "title": "Java Developer",
+      "subtitle": "Everis (NTT DATA)",
+      "description": [
+        "End-to-end development of web applications in Java and JSP, integrating SQL databases and web services to deliver scalable and maintainable solutions.",
+        "Implementation and consumption of APIs, workflow automation, and data-access optimization using MyBatis to improve application performance.",
+        "Collaboration with multidisciplinary teams in agile development environments to deliver high-quality solutions while meeting project deadlines and requirements.",
+        "- Stack: Java, JSP, SQL, MyBatis, REST APIs"
+      ],
+      "description_es": [
+        "> Mi punto de partida fue el desarrollo. Años después, como pentester, iba a explotar exactamente las decisiones técnicas que aquí tomábamos sin pensar en sus consecuencias de seguridad.",
+        "- Stack: Java, JSP, SQL, MyBatis, REST APIs",
+        "- CI/CD: Jenkins, Git (migración desde SVN)"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "date": "2020 - 2023",
+      "title": "Master's Degree in Computer Security and Systems",
+      "subtitle": "Escuela Internacional de Posgrados (EIP)",
+      "title_es": "Máster en Seguridad Informática y Sistemas",
+      "subtitle_es": "Escuela Internacional de Posgrados (EIP)"
+    },
+    {
+      "date": "2018 - 2020",
+      "title": "Advanced Vocational Degree in Multiplatform Application Development",
+      "subtitle": "Escola pia Mataró",
+      "title_es": "CFGS en Desarrollo de Aplicaciones Multiplataforma",
+      "subtitle_es": "Escola pia Mataró"
+    },
+    {
+      "date": "2018 - 2019",
+      "title": "DITEC Course",
+      "subtitle": "Institut Obert de Catalunya (IOC)",
+      "title_es": "Curso DITEC",
+      "subtitle_es": "Institut Obert de Catalunya (IOC)"
+    }
+  ],
+  "stages": [
+    {
+      "type": "security",
+      "date": "Stage 1",
+      "title": "Secret Scanning",
+      "subtitle": "Gitleaks",
+      "description": [
+        "The pipeline's first gate scans the entire repository history for hard-coded secrets before any code is built or tested.",
+        "- Tool: Gitleaks",
+        "- Scope: Full git history, all file types",
+        "Blocks the pipeline immediately if any API key, token, or password is detected — preventing credentials from ever reaching a built artifact."
+      ]
+    },
+    {
+      "type": "security",
+      "date": "Stage 2",
+      "title": "Unit Testing",
+      "subtitle": "Pytest + Flask Test Client",
+      "description": [
+        "Runs the full test suite to verify functional correctness before any security tool is invoked.",
+        "- Framework: Pytest 8.2.0",
+        "- Coverage: / and /health endpoints, HTTP status codes, JSON response shape",
+        "Tests must pass before SAST and SCA run — no point scanning broken code."
+      ]
+    },
+    {
+      "type": "security",
+      "date": "Stage 3 — parallel",
+      "title": "Static Analysis (SAST)",
+      "subtitle": "SonarCloud",
+      "description": [
+        "Static Application Security Testing analyses the source code for security vulnerabilities, code smells, and quality issues without executing it.",
+        "- Tool: SonarCloud",
+        "- Finding: Missing explicit HTTP method declarations violated least-privilege principle",
+        "Runs in parallel with Snyk SCA for faster pipeline execution."
+      ]
+    },
+    {
+      "type": "security",
+      "date": "Stage 3 — parallel",
+      "title": "Dependency Scanning (SCA)",
+      "subtitle": "Snyk",
+      "description": [
+        "Software Composition Analysis scans all Python dependencies for known CVEs with a severity threshold.",
+        "- Tool: Snyk",
+        "- Finding: gunicorn 22.0.0 had a high-severity CVE — updated to 23.0.0",
+        "Runs in parallel with SonarCloud SAST after tests pass."
+      ]
+    },
+    {
+      "type": "build",
+      "date": "Stage 4",
+      "title": "Container Build",
+      "subtitle": "Docker + GitHub Container Registry",
+      "description": [
+        "Builds a hardened multi-stage Docker image tagged with the commit SHA and pushes it to GHCR for immutable artifact tracking.",
+        "- Runtime: Python 3.12-slim (minimal OS attack surface)",
+        "- Security: Non-root appuser, multi-stage build, apt-get upgrade on base image",
+        "A single build guarantees Trivy and ZAP test the exact same image that reaches production — no rebuild risk."
+      ]
+    },
+    {
+      "type": "security",
+      "date": "Stage 5 — parallel",
+      "title": "Container Image Scanning",
+      "subtitle": "Trivy",
+      "description": [
+        "Scans the built Docker image at two layers: OS base packages and Python application dependencies.",
+        "- Tool: Trivy (Aqua Security)",
+        "- Threshold: CRITICAL and HIGH severity, ignore-unfixed: true",
+        "- Config: .trivyignore for accepted known risks",
+        "Only blocks on actionable vulnerabilities — CVEs with no available fix are not counted as blockers."
+      ]
+    },
+    {
+      "type": "security",
+      "date": "Stage 5 — parallel",
+      "title": "Dynamic Testing (DAST)",
+      "subtitle": "OWASP ZAP",
+      "description": [
+        "Dynamically attacks the running application to find runtime vulnerabilities that static analysis cannot detect.",
+        "- Tool: OWASP ZAP (Zed Attack Proxy)",
+        "- Finding: 5 missing HTTP security headers detected on first run",
+        "- Headers added: X-Content-Type-Options, Content-Security-Policy, Permissions-Policy, Cross-Origin-Resource-Policy, Cache-Control",
+        "- Config: .zap/rules.tsv for per-alert FAIL / WARN / IGNORE control",
+        "All 5 headers were added to the Flask app as a direct result of ZAP findings."
+      ]
+    },
+    {
+      "type": "security",
+      "date": "Stage 6",
+      "title": "Consolidated Report",
+      "subtitle": "Pipeline Artifact",
+      "description": [
+        "A shell script aggregates outputs from all five security tools into a single downloadable artifact retained for 7 days.",
+        "- Inputs: Gitleaks JSON, SonarCloud analysis, Snyk SARIF, Trivy JSON, ZAP HTML report",
+        "- Output: GitHub Actions step summary + artifact bundle",
+        "Single-pane-of-glass view of the full security posture on every push to main."
+      ]
+    }
+  ]
+}

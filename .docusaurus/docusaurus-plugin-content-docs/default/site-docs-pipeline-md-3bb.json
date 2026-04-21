@@ -1,0 +1,18 @@
+{
+  "unversionedId": "pipeline",
+  "id": "pipeline",
+  "title": "Pipeline Architecture",
+  "description": "This page documents the DevSecOps CI/CD pipeline implemented in devsecops-app — a GitHub Actions workflow that integrates five security tools across every stage of the software delivery lifecycle.",
+  "source": "@site/docs/pipeline.md",
+  "sourceDirName": ".",
+  "slug": "/pipeline",
+  "permalink": "/docs/pipeline",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar"
+}

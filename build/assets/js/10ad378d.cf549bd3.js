@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[313],{3953:s=>{s.exports=JSON.parse('{"label":"sonarcloud","permalink":"/blog/tags/sonarcloud","allTagsPath":"/blog/tags","count":1}')}}]);

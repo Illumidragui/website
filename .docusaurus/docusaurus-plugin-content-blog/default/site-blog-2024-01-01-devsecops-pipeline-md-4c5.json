@@ -1,0 +1,70 @@
+{
+  "permalink": "/blog/devsecops-pipeline-overview",
+  "source": "@site/blog/2024-01-01-devsecops-pipeline.md",
+  "title": "Building a Security-first CI/CD Pipeline",
+  "description": "Overview",
+  "date": "2024-01-01T00:00:00.000Z",
+  "formattedDate": "January 1, 2024",
+  "tags": [
+    {
+      "label": "devsecops",
+      "permalink": "/blog/tags/devsecops"
+    },
+    {
+      "label": "security",
+      "permalink": "/blog/tags/security"
+    },
+    {
+      "label": "cicd",
+      "permalink": "/blog/tags/cicd"
+    },
+    {
+      "label": "gitleaks",
+      "permalink": "/blog/tags/gitleaks"
+    },
+    {
+      "label": "sonarcloud",
+      "permalink": "/blog/tags/sonarcloud"
+    },
+    {
+      "label": "snyk",
+      "permalink": "/blog/tags/snyk"
+    },
+    {
+      "label": "trivy",
+      "permalink": "/blog/tags/trivy"
+    },
+    {
+      "label": "owasp-zap",
+      "permalink": "/blog/tags/owasp-zap"
+    }
+  ],
+  "readingTime": 2.13,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "DevSecOps Pipeline",
+      "title": "Security CI/CD Demo",
+      "url": "https://github.com/illumidragui/devsecops-app",
+      "imageURL": "/img/shield.svg",
+      "key": "devsecops"
+    }
+  ],
+  "frontMatter": {
+    "slug": "devsecops-pipeline-overview",
+    "title": "Building a Security-first CI/CD Pipeline",
+    "authors": [
+      "devsecops"
+    ],
+    "tags": [
+      "devsecops",
+      "security",
+      "cicd",
+      "gitleaks",
+      "sonarcloud",
+      "snyk",
+      "trivy",
+      "owasp-zap"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[980],{6085:s=>{s.exports=JSON.parse('{"label":"devsecops","permalink":"/blog/tags/devsecops","allTagsPath":"/blog/tags","count":1}')}}]);

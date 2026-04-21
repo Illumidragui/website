@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Dark background circle for circular profile frame -->
+  <circle cx="100" cy="100" r="100" fill="#001c38"/>
+  <!-- Outer shield -->
+  <path d="M100 18 L162 45 L162 108 C162 150 132 178 100 188 C68 178 38 150 38 108 L38 45 Z" fill="#6699cc" opacity="0.85"/>
+  <!-- Inner shield highlight -->
+  <path d="M100 30 L150 54 L150 108 C150 142 126 166 100 176 C74 166 50 142 50 108 L50 54 Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <!-- Shield top gradient accent -->
+  <path d="M100 18 L162 45 L150 54 L100 30 L50 54 L38 45 Z" fill="rgba(255,255,255,0.12)"/>
+  <!-- Checkmark -->
+  <path d="M68 100 L88 120 L132 76" stroke="white" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Subtle inner glow ring -->
+  <circle cx="100" cy="100" r="99" fill="none" stroke="rgba(102,153,204,0.3)" stroke-width="1.5"/>
+</svg>

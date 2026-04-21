@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Building a Security-first CI/CD Pipeline","permalink":"/blog/devsecops-pipeline-overview"}]}')}}]);

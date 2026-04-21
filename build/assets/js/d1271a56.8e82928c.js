@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[468],{1246:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/snyk","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

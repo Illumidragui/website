@@ -1,0 +1,208 @@
+.hero {
+  padding: 4rem 0 3rem;
+  background: var(--op-bg);
+  border-bottom: 1px solid var(--op-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(74, 222, 128, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.heroLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--op-accent);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.heroLabelLine {
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--op-accent);
+  flex-shrink: 0;
+}
+
+.heroTitle {
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: 2.4rem !important;
+  font-weight: 400 !important;
+  color: var(--op-text) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.heroSub {
+  font-size: 0.95rem;
+  color: var(--op-muted);
+  margin: 0;
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* ── Grid ─────────────────────────────────────────────── */
+
+.main {
+  padding: 3rem 0 5rem;
+  background: var(--op-bg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media screen and (max-width: 996px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ─────────────────────────────────────────────── */
+
+.card {
+  background: var(--op-bg-card);
+  border: 1px solid var(--op-border);
+  border-radius: 8px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(74, 222, 128, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 16px rgba(74, 222, 128, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.typeTag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 2px 8px;
+  width: fit-content;
+  background: transparent;
+}
+
+.cardTitle {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: var(--op-text) !important;
+  margin: 0 !important;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: var(--op-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Highlights ───────────────────────────────────────── */
+
+.highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  background: rgba(74, 222, 128, 0.02);
+  border: 1px solid var(--op-border);
+  border-left: 2px solid rgba(74, 222, 128, 0.25);
+  border-radius: 0 4px 4px 0;
+}
+
+.highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--op-muted);
+  line-height: 1.5;
+}
+
+.highlightDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+
+.cardFooter {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stackPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(74, 222, 128, 0.04);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  color: var(--op-muted);
+}
+
+:global([data-theme='light']) .pill {
+  color: #155d27;
+  background: rgba(21, 93, 39, 0.07);
+  border-color: rgba(21, 93, 39, 0.22);
+}
+
+.links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--op-accent) !important;
+  text-decoration: none !important;
+  letter-spacing: 0.04em;
+  transition: opacity 0.15s ease;
+}
+
+.link:hover {
+  opacity: 0.75;
+  text-decoration: none !important;
+}

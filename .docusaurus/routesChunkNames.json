@@ -1,0 +1,225 @@
+{
+  "/__docusaurus/debug-db5": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    }
+  },
+  "/__docusaurus/debug/config-9c9": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    }
+  },
+  "/__docusaurus/debug/content-232": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    },
+    "allContent": "allContent---docusaurus-debug-content-246-9aa"
+  },
+  "/__docusaurus/debug/globalData-878": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    }
+  },
+  "/__docusaurus/debug/metadata-d07": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    }
+  },
+  "/__docusaurus/debug/registry-9bd": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    }
+  },
+  "/__docusaurus/debug/routes-5d1": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugc-4-c-149"
+    }
+  },
+  "/blog-1b8": {
+    "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "metadata": "metadata---blogb-2-b-df1"
+  },
+  "/blog/archive-023": {
+    "__comp": "__comp---theme-blog-archive-page-9-e-4-1d8",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "archive": "archive---blog-archiveb-2-f-393"
+  },
+  "/blog/devsecops-pipeline-overview-bfe": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-devsecops-pipeline-overview-4-c-5-e06"
+  },
+  "/blog/tags-6a9": {
+    "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "tags": "tags---blog-tagsa-70-da2"
+  },
+  "/blog/tags/cicd-42b": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-cicdcac-13c",
+    "listMetadata": "listMetadata---blog-tags-cicddd-0-ab3"
+  },
+  "/blog/tags/devsecops-204": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-devsecops-004-250",
+    "listMetadata": "listMetadata---blog-tags-devsecops-02-d-c72"
+  },
+  "/blog/tags/gitleaks-cbc": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-gitleaks-47-a-caa",
+    "listMetadata": "listMetadata---blog-tags-gitleaks-9-e-2-b1b"
+  },
+  "/blog/tags/owasp-zap-c37": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-owasp-zapd-37-6d6",
+    "listMetadata": "listMetadata---blog-tags-owasp-zap-7-c-9-391"
+  },
+  "/blog/tags/security-443": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-security-04-f-e8e",
+    "listMetadata": "listMetadata---blog-tags-securitye-34-23e"
+  },
+  "/blog/tags/snyk-bd4": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-snykddb-aef",
+    "listMetadata": "listMetadata---blog-tags-snykd-12-eab"
+  },
+  "/blog/tags/sonarcloud-601": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-sonarcloud-10-a-a69",
+    "listMetadata": "listMetadata---blog-tags-sonarcloud-2-b-0-e99"
+  },
+  "/blog/tags/trivy-d96": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-114-f5d"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-14-b-1b6"
+      }
+    ],
+    "tag": "tag---blog-tags-trivy-8-b-4-2b4",
+    "listMetadata": "listMetadata---blog-tags-trivyb-0-c-f5e"
+  },
+  "/infrastructure-df6": {
+    "__comp": "__comp---site-src-pages-infrastructure-jsa-73-3e7",
+    "__context": {
+      "plugin": "plugin---infrastructureab-7-811"
+    },
+    "config": "config---infrastructure-5-e-9-9e0"
+  },
+  "/portfolio-363": {
+    "__comp": "__comp---site-src-pages-portfolio-js-0-e-8-f26",
+    "__context": {
+      "plugin": "plugin---infrastructureab-7-811"
+    },
+    "config": "config---infrastructure-5-e-9-9e0"
+  },
+  "/docs-110": {
+    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__context": {
+      "plugin": "plugin---docs-05-d-e39"
+    },
+    "versionMetadata": "versionMetadata---docs-935-398"
+  },
+  "/docs/pipeline-37d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-pipeline-0-da-f38"
+  },
+  "/-a3d": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__context": {
+      "plugin": "plugin---infrastructureab-7-811"
+    },
+    "config": "config---infrastructure-5-e-9-9e0"
+  }
+}

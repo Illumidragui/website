@@ -1,0 +1,35 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin: 0 4px;
+}
+
+.active {
+  cursor: pointer;
+  padding: 4px 8px;
+  color: var(--op-accent);
+  border-bottom: 1px solid var(--op-accent);
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.inactive {
+  cursor: pointer;
+  padding: 4px 8px;
+  color: var(--op-muted);
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.inactive:hover {
+  color: var(--op-accent);
+}
+
+.sep {
+  color: var(--op-border);
+  padding: 0 2px;
+}

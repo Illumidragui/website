@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Infima palette — Operator theme ────────────────────────── */
+:root {
+  --ifm-color-primary:         #4ade80;
+  --ifm-color-primary-dark:    #22c55e;
+  --ifm-color-primary-darker:  #16a34a;
+  --ifm-color-primary-darkest: #15803d;
+  --ifm-color-primary-light:   #86efac;
+  --ifm-color-primary-lighter: #bbf7d0;
+  --ifm-color-primary-lightest:#dcfce7;
+
+  --op-bg:        #0a0c0f;
+  --op-bg-card:   #0d1117;
+  --op-bg-hover:  #111820;
+  --op-text:      #e2e8f0;
+  --op-muted:     #64748b;
+  --op-border:    #1a2a1a;
+  --op-accent:    #4ade80;
+
+  --ifm-background-color:         var(--op-bg);
+  --ifm-background-surface-color: var(--op-bg-card);
+  --ifm-font-color-base:          var(--op-text);
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(74, 222, 128, 0.08);
+  --ifm-font-family-base: 'Inter', system-ui, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Courier New', monospace;
+
+  --ifm-navbar-background-color: var(--op-bg-card);
+  --ifm-navbar-shadow: 0 1px 0 var(--op-border);
+  --ifm-footer-background-color: var(--op-bg-card);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary:         #4ade80;
+  --ifm-color-primary-dark:    #22c55e;
+  --ifm-color-primary-darker:  #16a34a;
+  --ifm-color-primary-darkest: #15803d;
+  --ifm-color-primary-light:   #86efac;
+  --ifm-color-primary-lighter: #bbf7d0;
+  --ifm-color-primary-lightest:#dcfce7;
+
+  --ifm-background-color:         var(--op-bg);
+  --ifm-background-surface-color: var(--op-bg-card);
+  --ifm-font-color-base:          var(--op-text);
+  --docusaurus-highlighted-code-line-bg: rgba(74, 222, 128, 0.08);
+
+  --ifm-navbar-background-color: var(--op-bg-card);
+  --ifm-navbar-shadow: 0 1px 0 var(--op-border);
+  --ifm-footer-background-color: var(--op-bg-card);
+}
+
+/* ── Light theme — Hacker Light (vintage terminal paper) ────── */
+[data-theme='light'] {
+  --op-bg:        #f0f4f0;
+  --op-bg-card:   #e8ede8;
+  --op-bg-hover:  #dde4dd;
+  --op-border:    #b8ccb8;
+  --op-text:      #1a2a1a;
+  --op-muted:     #4a6a4a;
+  --op-accent:    #1a7a3a;
+
+  --ifm-color-primary:          #1a7a3a;
+  --ifm-color-primary-dark:     #166632;
+  --ifm-color-primary-darker:   #125228;
+  --ifm-color-primary-darkest:  #0e3e1e;
+  --ifm-color-primary-light:    #2a9a52;
+  --ifm-color-primary-lighter:  #3aba6a;
+  --ifm-color-primary-lightest: #6ad494;
+
+  --ifm-background-color:         var(--op-bg);
+  --ifm-background-surface-color: var(--op-bg-card);
+  --ifm-font-color-base:          var(--op-text);
+  --ifm-navbar-background-color:  var(--op-bg-card);
+  --ifm-footer-background-color:  var(--op-bg-card);
+}
+
+[data-theme='light'] .heroBanner::before {
+  background-image: radial-gradient(circle, rgba(26, 122, 58, 0.08) 1px, transparent 1px);
+}
+
+/* ── Global ──────────────────────────────────────────────────── */
+body {
+  background-color: var(--op-bg);
+  color: var(--op-text);
+  font-family: var(--ifm-font-family-base);
+}
+
+.navbar {
+  background: var(--op-bg-card) !important;
+  border-bottom: 1px solid var(--op-border) !important;
+}
+
+.footer {
+  background: var(--op-bg-card) !important;
+  border-top: 1px solid var(--op-border);
+}
+
+.hero--primary {
+  background: var(--op-bg) !important;
+}
+
+/* ── Navbar title monospace ─────────────────────────────────── */
+.navbar__title {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9rem;
+  color: var(--op-accent) !important;
+  letter-spacing: 0.04em;
+}
+
+/* ── Profile image ──────────────────────────────────────────── */
+.profileimg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profileimg {
+  height: auto;
+  max-width: 220px;
+  border-radius: 50%;
+  border: 2px solid rgba(74, 222, 128, 0.35);
+  box-shadow:
+    0 0 0 6px rgba(74, 222, 128, 0.06),
+    0 0 30px rgba(74, 222, 128, 0.18),
+    0 0 60px rgba(74, 222, 128, 0.08);
+  animation: float 5s ease-in-out infinite;
+  margin-bottom: 40px;
+  background: var(--op-bg-card);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+/* ── Badge images ───────────────────────────────────────────── */
+.badgeimage {
+  height: 28px;
+  width: auto;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  border-radius: 4px;
+}
+
+.badgeimage:hover {
+  transform: translateY(-4px) scale(1.06);
+  filter: drop-shadow(0 6px 12px rgba(74, 222, 128, 0.4));
+}
+
+/* ── Timeline date label ────────────────────────────────────── */
+.contrastWithBackground {
+  color: var(--op-accent) !important;
+  font-family: var(--ifm-font-family-monospace) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.06em;
+}
+
+@media only screen and (max-width: 1169px) {
+  .contrastWithBackground {
+    color: var(--op-accent) !important;
+  }
+}
+
+/* ── Timeline card internals ────────────────────────────────── */
+.vertical-timeline-element-title {
+  color: var(--op-text) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+}
+
+.vertical-timeline-element-subtitle {
+  color: var(--op-accent) !important;
+  font-family: var(--ifm-font-family-monospace) !important;
+  font-size: 13px !important;
+  margin-top: 4px !important;
+}
+
+/* ── pmid helper ────────────────────────────────────────────── */
+.pmid {
+  margin-bottom: 32px;
+}
