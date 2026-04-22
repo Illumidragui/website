@@ -1,6 +1,9 @@
 import React from 'react';
 import Layout from '@theme/Layout';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import InfraContent from '@site/src/components/InfraContent';
+import PipelineContent from '@site/src/components/PipelineContent';
 import { useLang } from '@site/src/context/LangContext';
 import styles from './infrastructure.module.css';
 
@@ -11,15 +14,13 @@ function InfraHeader() {
       <div className="container">
         <span className={styles.label}>
           <span className={styles.labelLine} />
-          {lang === 'es' ? 'INFRAESTRUCTURA CLOUD' : 'CLOUD INFRASTRUCTURE'}
+          {lang === 'es' ? 'INFRAESTRUCTURA & PIPELINE' : 'INFRASTRUCTURE & PIPELINE'}
         </span>
         <h1 className={styles.title}>
-          {lang === 'es' ? 'KuberLab — Laboratorio Personal de DevOps en AWS' : 'KuberLab — Personal DevOps Lab on AWS'}
+          {lang === 'es' ? 'KuberLab — Infraestructura y CI/CD' : 'KuberLab — Infrastructure & CI/CD'}
         </h1>
         <p className={styles.subtitle}>
-          {lang === 'es'
-            ? 'AWS · Terraform · k3s · ArgoCD · Helm · Tailscale'
-            : 'AWS · Terraform · k3s · ArgoCD · Helm · Tailscale'}
+          AWS · Terraform · k3s · ArgoCD · Helm · Tailscale · GitHub Actions
         </p>
       </div>
     </div>
@@ -31,11 +32,18 @@ export default function InfrastructurePage() {
   return (
     <Layout
       title={lang === 'es' ? 'Infraestructura' : 'Infrastructure'}
-      description="KuberLab — Personal DevOps lab on AWS using Terraform, k3s, ArgoCD and Tailscale">
+      description="KuberLab — Infrastructure and CI/CD pipeline documentation">
       <InfraHeader />
       <div className={styles.body}>
         <div className="container">
-          <InfraContent />
+          <Tabs>
+            <TabItem value="cicd" label={lang === 'es' ? 'Pipeline CI/CD' : 'CI/CD Pipeline'} default>
+              <PipelineContent />
+            </TabItem>
+            <TabItem value="infrastructure" label={lang === 'es' ? 'Infraestructura' : 'Infrastructure'}>
+              <InfraContent />
+            </TabItem>
+          </Tabs>
         </div>
       </div>
     </Layout>

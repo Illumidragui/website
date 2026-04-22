@@ -13,9 +13,9 @@
           "tagsPath": "/docs/tags",
           "isLast": true,
           "routePriority": -1,
-          "sidebarFilePath": "/home/sye/labs/website/devsecops-v5/sidebars.js",
-          "contentPath": "/home/sye/labs/website/devsecops-v5/docs",
-          "contentPathLocalized": "/home/sye/labs/website/devsecops-v5/i18n/en/docusaurus-plugin-content-docs/current",
+          "sidebarFilePath": "/home/sye/labs/kuberlab/devsecops-v5/sidebars.js",
+          "contentPath": "/home/sye/labs/kuberlab/devsecops-v5/docs",
+          "contentPathLocalized": "/home/sye/labs/kuberlab/devsecops-v5/i18n/en/docusaurus-plugin-content-docs/current",
           "docs": [
             {
               "unversionedId": "pipeline",

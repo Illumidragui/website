@@ -26,13 +26,13 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "/home/sye/labs/website/devsecops-v5/sidebars.js"
+          "sidebarPath": "/home/sye/labs/kuberlab/devsecops-v5/sidebars.js"
         },
         "blog": {
           "showReadingTime": true
         },
         "theme": {
-          "customCss": "/home/sye/labs/website/devsecops-v5/src/css/custom.css"
+          "customCss": "/home/sye/labs/kuberlab/devsecops-v5/src/css/custom.css"
         }
       }
     ]
@@ -62,12 +62,6 @@ export default {
           "position": "left"
         },
         {
-          "type": "docSidebar",
-          "sidebarId": "tutorialSidebar",
-          "position": "left",
-          "label": "Pipeline Docs"
-        },
-        {
           "to": "/blog",
           "label": "Security Blog",
           "position": "left"
@@ -93,10 +87,6 @@ export default {
             {
               "label": "Experiencia",
               "href": "/#experience"
-            },
-            {
-              "label": "Pipeline Docs",
-              "to": "/docs/pipeline"
             },
             {
               "label": "Security Blog",

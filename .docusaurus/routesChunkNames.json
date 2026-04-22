@@ -1,51 +1,51 @@
 {
-  "/__docusaurus/debug-db5": {
+  "/__docusaurus/debug-26a": {
     "__comp": "__comp---theme-debug-config-23-a-2ff",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     }
   },
-  "/__docusaurus/debug/config-9c9": {
+  "/__docusaurus/debug/config-372": {
     "__comp": "__comp---theme-debug-config-23-a-2ff",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     }
   },
-  "/__docusaurus/debug/content-232": {
+  "/__docusaurus/debug/content-f23": {
     "__comp": "__comp---theme-debug-contentba-8-ce7",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     },
     "allContent": "allContent---docusaurus-debug-content-246-9aa"
   },
-  "/__docusaurus/debug/globalData-878": {
+  "/__docusaurus/debug/globalData-3c6": {
     "__comp": "__comp---theme-debug-global-dataede-0fa",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     }
   },
-  "/__docusaurus/debug/metadata-d07": {
+  "/__docusaurus/debug/metadata-6e4": {
     "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     }
   },
-  "/__docusaurus/debug/registry-9bd": {
+  "/__docusaurus/debug/registry-572": {
     "__comp": "__comp---theme-debug-registry-679-501",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     }
   },
-  "/__docusaurus/debug/routes-5d1": {
+  "/__docusaurus/debug/routes-20f": {
     "__comp": "__comp---theme-debug-routes-946-699",
     "__context": {
-      "plugin": "plugin---docusaurus-debugc-4-c-149"
+      "plugin": "plugin---docusaurus-debug-751-f7c"
     }
   },
-  "/blog-1b8": {
+  "/blog-0a2": {
     "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -55,33 +55,33 @@
     ],
     "metadata": "metadata---blogb-2-b-df1"
   },
-  "/blog/archive-023": {
+  "/blog/archive-670": {
     "__comp": "__comp---theme-blog-archive-page-9-e-4-1d8",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "archive": "archive---blog-archiveb-2-f-393"
   },
-  "/blog/devsecops-pipeline-overview-bfe": {
+  "/blog/devsecops-pipeline-overview-c80": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "content": "content---blog-devsecops-pipeline-overview-4-c-5-e06"
   },
-  "/blog/tags-6a9": {
+  "/blog/tags-131": {
     "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "tags": "tags---blog-tagsa-70-da2"
   },
-  "/blog/tags/cicd-42b": {
+  "/blog/tags/cicd-6f9": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -92,10 +92,10 @@
     "tag": "tag---blog-tags-cicdcac-13c",
     "listMetadata": "listMetadata---blog-tags-cicddd-0-ab3"
   },
-  "/blog/tags/devsecops-204": {
+  "/blog/tags/devsecops-7c6": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -106,10 +106,10 @@
     "tag": "tag---blog-tags-devsecops-004-250",
     "listMetadata": "listMetadata---blog-tags-devsecops-02-d-c72"
   },
-  "/blog/tags/gitleaks-cbc": {
+  "/blog/tags/gitleaks-f8f": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -120,10 +120,10 @@
     "tag": "tag---blog-tags-gitleaks-47-a-caa",
     "listMetadata": "listMetadata---blog-tags-gitleaks-9-e-2-b1b"
   },
-  "/blog/tags/owasp-zap-c37": {
+  "/blog/tags/owasp-zap-8c9": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -134,10 +134,10 @@
     "tag": "tag---blog-tags-owasp-zapd-37-6d6",
     "listMetadata": "listMetadata---blog-tags-owasp-zap-7-c-9-391"
   },
-  "/blog/tags/security-443": {
+  "/blog/tags/security-e0f": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -148,10 +148,10 @@
     "tag": "tag---blog-tags-security-04-f-e8e",
     "listMetadata": "listMetadata---blog-tags-securitye-34-23e"
   },
-  "/blog/tags/snyk-bd4": {
+  "/blog/tags/snyk-65b": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -162,10 +162,10 @@
     "tag": "tag---blog-tags-snykddb-aef",
     "listMetadata": "listMetadata---blog-tags-snykd-12-eab"
   },
-  "/blog/tags/sonarcloud-601": {
+  "/blog/tags/sonarcloud-e7a": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -176,10 +176,10 @@
     "tag": "tag---blog-tags-sonarcloud-10-a-a69",
     "listMetadata": "listMetadata---blog-tags-sonarcloud-2-b-0-e99"
   },
-  "/blog/tags/trivy-d96": {
+  "/blog/tags/trivy-378": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
-      "plugin": "plugin---blog-114-f5d"
+      "plugin": "plugin---blog-6-b-2-396"
     },
     "sidebar": "sidebar---blog-814-8ac",
     "items": [
@@ -190,24 +190,24 @@
     "tag": "tag---blog-tags-trivy-8-b-4-2b4",
     "listMetadata": "listMetadata---blog-tags-trivyb-0-c-f5e"
   },
-  "/infrastructure-df6": {
+  "/infrastructure-f2a": {
     "__comp": "__comp---site-src-pages-infrastructure-jsa-73-3e7",
     "__context": {
-      "plugin": "plugin---infrastructureab-7-811"
+      "plugin": "plugin---infrastructuree-10-e19"
     },
     "config": "config---infrastructure-5-e-9-9e0"
   },
-  "/portfolio-363": {
+  "/portfolio-404": {
     "__comp": "__comp---site-src-pages-portfolio-js-0-e-8-f26",
     "__context": {
-      "plugin": "plugin---infrastructureab-7-811"
+      "plugin": "plugin---infrastructuree-10-e19"
     },
     "config": "config---infrastructure-5-e-9-9e0"
   },
-  "/docs-110": {
+  "/docs-68d": {
     "__comp": "__comp---theme-doc-page-1-be-9be",
     "__context": {
-      "plugin": "plugin---docs-05-d-e39"
+      "plugin": "plugin---docsbb-5-ed1"
     },
     "versionMetadata": "versionMetadata---docs-935-398"
   },
@@ -215,10 +215,10 @@
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-pipeline-0-da-f38"
   },
-  "/-a3d": {
+  "/-162": {
     "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
     "__context": {
-      "plugin": "plugin---infrastructureab-7-811"
+      "plugin": "plugin---infrastructuree-10-e19"
     },
     "config": "config---infrastructure-5-e-9-9e0"
   }

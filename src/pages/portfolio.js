@@ -15,7 +15,7 @@ const projects = {
         'GitHub Actions workflow integrating 5 security gates across the full delivery lifecycle of a Flask application — secret scanning, unit tests, SAST, SCA, container build, container scan, and DAST running in parallel where possible.',
       stack: ['GitHub Actions', 'Gitleaks', 'SonarCloud', 'Snyk', 'Trivy', 'OWASP ZAP', 'Docker', 'Python'],
       links: [
-        { label: 'Pipeline Docs', url: '/docs/pipeline', external: false },
+        { label: 'CI/CD Docs', url: '/infrastructure', external: false },
         { label: 'GitHub', url: 'https://github.com/Illumidragui/devsecops-pipeline', external: true },
       ],
       highlights: [
@@ -54,7 +54,7 @@ const projects = {
         'Workflow de GitHub Actions que integra 5 controles de seguridad a lo largo del ciclo de vida completo de una aplicación Flask — escaneo de secretos, pruebas unitarias, SAST, SCA, build del contenedor, escaneo del contenedor y DAST en paralelo donde es posible.',
       stack: ['GitHub Actions', 'Gitleaks', 'SonarCloud', 'Snyk', 'Trivy', 'OWASP ZAP', 'Docker', 'Python'],
       links: [
-        { label: 'Pipeline Docs', url: '/docs/pipeline', external: false },
+        { label: 'Docs CI/CD', url: '/infrastructure', external: false },
         { label: 'GitHub', url: 'https://github.com/Illumidragui/devsecops-pipeline', external: true },
       ],
       highlights: [

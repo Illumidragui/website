@@ -69,12 +69,6 @@ const config = {
             label: 'Infrastructure',
             position: 'left',
           },
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Pipeline Docs',
-          },
           { to: '/blog', label: 'Security Blog', position: 'left' },
           {
             type: 'custom-langToggle',
@@ -94,7 +88,6 @@ const config = {
             title: 'Navegación',
             items: [
               { label: 'Experiencia', href: '/#experience' },
-              { label: 'Pipeline Docs', to: '/docs/pipeline' },
               { label: 'Security Blog', to: '/blog' },
             ],
           },
