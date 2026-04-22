@@ -26,13 +26,13 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "/home/sye/labs/kuberlab/devsecops-v5/sidebars.js"
+          "sidebarPath": "/home/sye/labs/website/kuberlab/devsecops-v5/sidebars.js"
         },
         "blog": {
           "showReadingTime": true
         },
         "theme": {
-          "customCss": "/home/sye/labs/kuberlab/devsecops-v5/src/css/custom.css"
+          "customCss": "/home/sye/labs/website/kuberlab/devsecops-v5/src/css/custom.css"
         }
       }
     ]

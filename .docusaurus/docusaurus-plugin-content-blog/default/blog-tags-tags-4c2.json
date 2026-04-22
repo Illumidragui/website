@@ -1,5 +1,50 @@
 [
   {
+    "label": "kubernetes",
+    "permalink": "/blog/tags/kubernetes",
+    "count": 1
+  },
+  {
+    "label": "terraform",
+    "permalink": "/blog/tags/terraform",
+    "count": 1
+  },
+  {
+    "label": "argocd",
+    "permalink": "/blog/tags/argocd",
+    "count": 1
+  },
+  {
+    "label": "helm",
+    "permalink": "/blog/tags/helm",
+    "count": 1
+  },
+  {
+    "label": "gitops",
+    "permalink": "/blog/tags/gitops",
+    "count": 1
+  },
+  {
+    "label": "tailscale",
+    "permalink": "/blog/tags/tailscale",
+    "count": 1
+  },
+  {
+    "label": "k3s",
+    "permalink": "/blog/tags/k-3-s",
+    "count": 1
+  },
+  {
+    "label": "aws",
+    "permalink": "/blog/tags/aws",
+    "count": 1
+  },
+  {
+    "label": "devops",
+    "permalink": "/blog/tags/devops",
+    "count": 1
+  },
+  {
     "label": "devsecops",
     "permalink": "/blog/tags/devsecops",
     "count": 1

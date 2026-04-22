@@ -2,6 +2,10 @@
   "title": "Recent posts",
   "items": [
     {
+      "title": "KuberLab: Building a Personal DevOps Lab on AWS",
+      "permalink": "/blog/kuberlab-personal-devops-lab"
+    },
+    {
       "title": "Building a Security-first CI/CD Pipeline",
       "permalink": "/blog/devsecops-pipeline-overview"
     }

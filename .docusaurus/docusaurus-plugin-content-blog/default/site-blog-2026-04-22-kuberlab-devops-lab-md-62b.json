@@ -1,0 +1,79 @@
+{
+  "permalink": "/blog/kuberlab-personal-devops-lab",
+  "source": "@site/blog/2026-04-22-kuberlab-devops-lab.md",
+  "title": "KuberLab: Building a Personal DevOps Lab on AWS",
+  "description": "A personal infrastructure lab for learning Kubernetes, ArgoCD, Helm, and Terraform in a production-realistic setup. The goal: deploy and destroy the full stack repeatedly to build operational intuition — not just theory.",
+  "date": "2026-04-22T00:00:00.000Z",
+  "formattedDate": "April 22, 2026",
+  "tags": [
+    {
+      "label": "kubernetes",
+      "permalink": "/blog/tags/kubernetes"
+    },
+    {
+      "label": "terraform",
+      "permalink": "/blog/tags/terraform"
+    },
+    {
+      "label": "argocd",
+      "permalink": "/blog/tags/argocd"
+    },
+    {
+      "label": "helm",
+      "permalink": "/blog/tags/helm"
+    },
+    {
+      "label": "gitops",
+      "permalink": "/blog/tags/gitops"
+    },
+    {
+      "label": "tailscale",
+      "permalink": "/blog/tags/tailscale"
+    },
+    {
+      "label": "k3s",
+      "permalink": "/blog/tags/k-3-s"
+    },
+    {
+      "label": "aws",
+      "permalink": "/blog/tags/aws"
+    },
+    {
+      "label": "devops",
+      "permalink": "/blog/tags/devops"
+    }
+  ],
+  "readingTime": 8.165,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "KuberLab",
+      "title": "Personal DevOps Lab",
+      "url": "https://github.com/Illumidragui",
+      "imageURL": "/img/shield.svg",
+      "key": "kuberlab"
+    }
+  ],
+  "frontMatter": {
+    "slug": "kuberlab-personal-devops-lab",
+    "title": "KuberLab: Building a Personal DevOps Lab on AWS",
+    "authors": [
+      "kuberlab"
+    ],
+    "tags": [
+      "kubernetes",
+      "terraform",
+      "argocd",
+      "helm",
+      "gitops",
+      "tailscale",
+      "k3s",
+      "aws",
+      "devops"
+    ]
+  },
+  "nextItem": {
+    "title": "Building a Security-first CI/CD Pipeline",
+    "permalink": "/blog/devsecops-pipeline-overview"
+  }
+}

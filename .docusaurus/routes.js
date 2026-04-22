@@ -4,112 +4,162 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 export default [
   {
     path: '/__docusaurus/debug',
-    component: ComponentCreator('/__docusaurus/debug', '26a'),
+    component: ComponentCreator('/__docusaurus/debug', '1da'),
     exact: true
   },
   {
     path: '/__docusaurus/debug/config',
-    component: ComponentCreator('/__docusaurus/debug/config', '372'),
+    component: ComponentCreator('/__docusaurus/debug/config', '138'),
     exact: true
   },
   {
     path: '/__docusaurus/debug/content',
-    component: ComponentCreator('/__docusaurus/debug/content', 'f23'),
+    component: ComponentCreator('/__docusaurus/debug/content', 'f35'),
     exact: true
   },
   {
     path: '/__docusaurus/debug/globalData',
-    component: ComponentCreator('/__docusaurus/debug/globalData', '3c6'),
+    component: ComponentCreator('/__docusaurus/debug/globalData', '754'),
     exact: true
   },
   {
     path: '/__docusaurus/debug/metadata',
-    component: ComponentCreator('/__docusaurus/debug/metadata', '6e4'),
+    component: ComponentCreator('/__docusaurus/debug/metadata', 'fc4'),
     exact: true
   },
   {
     path: '/__docusaurus/debug/registry',
-    component: ComponentCreator('/__docusaurus/debug/registry', '572'),
+    component: ComponentCreator('/__docusaurus/debug/registry', 'dd6'),
     exact: true
   },
   {
     path: '/__docusaurus/debug/routes',
-    component: ComponentCreator('/__docusaurus/debug/routes', '20f'),
+    component: ComponentCreator('/__docusaurus/debug/routes', '9a9'),
     exact: true
   },
   {
     path: '/blog',
-    component: ComponentCreator('/blog', '0a2'),
+    component: ComponentCreator('/blog', '411'),
     exact: true
   },
   {
     path: '/blog/archive',
-    component: ComponentCreator('/blog/archive', '670'),
+    component: ComponentCreator('/blog/archive', '421'),
     exact: true
   },
   {
     path: '/blog/devsecops-pipeline-overview',
-    component: ComponentCreator('/blog/devsecops-pipeline-overview', 'c80'),
+    component: ComponentCreator('/blog/devsecops-pipeline-overview', 'e8e'),
+    exact: true
+  },
+  {
+    path: '/blog/kuberlab-personal-devops-lab',
+    component: ComponentCreator('/blog/kuberlab-personal-devops-lab', '383'),
     exact: true
   },
   {
     path: '/blog/tags',
-    component: ComponentCreator('/blog/tags', '131'),
+    component: ComponentCreator('/blog/tags', '844'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/argocd',
+    component: ComponentCreator('/blog/tags/argocd', 'eae'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/aws',
+    component: ComponentCreator('/blog/tags/aws', '4bb'),
     exact: true
   },
   {
     path: '/blog/tags/cicd',
-    component: ComponentCreator('/blog/tags/cicd', '6f9'),
+    component: ComponentCreator('/blog/tags/cicd', '830'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/devops',
+    component: ComponentCreator('/blog/tags/devops', '437'),
     exact: true
   },
   {
     path: '/blog/tags/devsecops',
-    component: ComponentCreator('/blog/tags/devsecops', '7c6'),
+    component: ComponentCreator('/blog/tags/devsecops', 'b00'),
     exact: true
   },
   {
     path: '/blog/tags/gitleaks',
-    component: ComponentCreator('/blog/tags/gitleaks', 'f8f'),
+    component: ComponentCreator('/blog/tags/gitleaks', '3b7'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/gitops',
+    component: ComponentCreator('/blog/tags/gitops', '1b9'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/helm',
+    component: ComponentCreator('/blog/tags/helm', 'c39'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/k-3-s',
+    component: ComponentCreator('/blog/tags/k-3-s', 'c77'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/kubernetes',
+    component: ComponentCreator('/blog/tags/kubernetes', 'b03'),
     exact: true
   },
   {
     path: '/blog/tags/owasp-zap',
-    component: ComponentCreator('/blog/tags/owasp-zap', '8c9'),
+    component: ComponentCreator('/blog/tags/owasp-zap', 'c54'),
     exact: true
   },
   {
     path: '/blog/tags/security',
-    component: ComponentCreator('/blog/tags/security', 'e0f'),
+    component: ComponentCreator('/blog/tags/security', '689'),
     exact: true
   },
   {
     path: '/blog/tags/snyk',
-    component: ComponentCreator('/blog/tags/snyk', '65b'),
+    component: ComponentCreator('/blog/tags/snyk', '748'),
     exact: true
   },
   {
     path: '/blog/tags/sonarcloud',
-    component: ComponentCreator('/blog/tags/sonarcloud', 'e7a'),
+    component: ComponentCreator('/blog/tags/sonarcloud', '426'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/tailscale',
+    component: ComponentCreator('/blog/tags/tailscale', 'b8c'),
+    exact: true
+  },
+  {
+    path: '/blog/tags/terraform',
+    component: ComponentCreator('/blog/tags/terraform', '678'),
     exact: true
   },
   {
     path: '/blog/tags/trivy',
-    component: ComponentCreator('/blog/tags/trivy', '378'),
+    component: ComponentCreator('/blog/tags/trivy', '599'),
     exact: true
   },
   {
     path: '/infrastructure',
-    component: ComponentCreator('/infrastructure', 'f2a'),
+    component: ComponentCreator('/infrastructure', 'd18'),
     exact: true
   },
   {
     path: '/portfolio',
-    component: ComponentCreator('/portfolio', '404'),
+    component: ComponentCreator('/portfolio', '6df'),
     exact: true
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '68d'),
+    component: ComponentCreator('/docs', '81b'),
     routes: [
       {
         path: '/docs/pipeline',
@@ -121,7 +171,7 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', '162'),
+    component: ComponentCreator('/', 'c88'),
     exact: true
   },
   {

@@ -3,3 +3,9 @@ devsecops:
   title: Security CI/CD Demo
   url: https://github.com/illumidragui/devsecops-app
   image_url: /img/shield.svg
+
+kuberlab:
+  name: KuberLab
+  title: Personal DevOps Lab
+  url: https://github.com/Illumidragui
+  image_url: /img/shield.svg
