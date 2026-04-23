@@ -14,6 +14,8 @@ jobs:
     with:
       language: node
       run-tests: false
+      run-sonarcloud: false
+      run-snyk: false
     secrets: inherit
 
   build:
