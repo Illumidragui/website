@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  deployments: write
+
 jobs:
   security:
     uses: Illumidragui/.github/.github/workflows/_reusable.code-security.yml@main
