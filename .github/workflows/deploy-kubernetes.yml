@@ -28,16 +28,14 @@ jobs:
     needs: build
     uses: Illumidragui/.github/.github/workflows/_reusable.container-security.yml@main
     with:
-      image-name: ghcr.io/illumidragui/syesite
+      image-name: illumidragui/syesite
     secrets: inherit
 
   deploy:
     needs: container-security
     uses: Illumidragui/.github/.github/workflows/_reusable.deploy-kubernetes.yml@main
     with:
-      image-name: ghcr.io/illumidragui/syesite
-      config-repo: Illumidragui/devsecops-k8s-config
-      config-values-file: syesite/values.yaml
+      image-name: illumidragui/syesite
       helm-repo: Illumidragui/devsecops-helm
       helm-values-file: syesite-chart/values.yaml
     secrets: inherit
