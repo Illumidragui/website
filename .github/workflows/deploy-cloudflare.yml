@@ -1,0 +1,27 @@
+name: Deploy → Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  security:
+    uses: Illumidragui/.github/.github/workflows/_reusable.code-security.yml@main
+    with:
+      language: node
+      run-tests: false
+    secrets: inherit
+
+  build:
+    needs: security
+    uses: Illumidragui/.github/.github/workflows/_reusable.build-static.yml@main
+    with:
+      site-url: https://shengjunye.me
+    secrets: inherit
+
+  deploy:
+    needs: build
+    uses: Illumidragui/.github/.github/workflows/_reusable.deploy-cloudflare.yml@main
+    with:
+      cf-project-name: website
+    secrets: inherit
