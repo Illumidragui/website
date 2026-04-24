@@ -7,17 +7,6 @@ import projectData from '@site/src/data/project.json';
 import { useLang } from '@site/src/context/LangContext';
 import { t } from '@site/src/data/translations';
 
-/* ── Hero tags ─────────────────────────────────────────────── */
-
-const HERO_TAGS = [
-  { label: 'Shift Left',  accent: true },
-  { label: 'DevSecOps',   accent: true },
-  { label: 'CI/CD',       accent: false },
-  { label: 'Cloud',       accent: false },
-  { label: 'Kubernetes',  accent: false },
-  { label: 'Terraform',   accent: false },
-];
-
 /* ── Hero ──────────────────────────────────────────────────── */
 
 function HomepageHeader() {
@@ -49,7 +38,7 @@ function HomepageHeader() {
 
             {/* Tag pills */}
             <div className={styles.heroTags}>
-              {HERO_TAGS.map(tag => (
+              {projectData.heroTags.map(tag => (
                 <span
                   key={tag.label}
                   className={clsx(styles.heroTag, tag.accent && styles.heroTagAccent)}
@@ -109,11 +98,7 @@ function HomepageHeader() {
                   <div className={styles.terminalBody}>
                     <div className={styles.cmdLine}>
                       <span className={styles.cmdPrompt}>$</span>
-                      <span className={styles.cmd}>
-                        {lang === 'es'
-                          ? 'Click para explorar el pipeline de seguridad'
-                          : 'Click to explore the security pipeline'}
-                      </span>
+                      <span className={styles.cmd}>{tr.terminalCmd}</span>
                     </div>
                     <div className={styles.pipeline}>
                       <span className={styles.stage}>SCAN ✓</span>
@@ -125,7 +110,7 @@ function HomepageHeader() {
                       <span className={styles.stage}>DAST ✓</span>
                     </div>
                     <div className={styles.techRow}>
-                      {['Gitleaks', 'SonarCloud', 'Snyk', 'Trivy', 'ZAP', 'Docker', 'GHA'].map(tech => (
+                      {projectData.terminalTechPills.map(tech => (
                         <span key={tech} className={styles.techPill}>{tech}</span>
                       ))}
                     </div>
@@ -290,7 +275,7 @@ function Education() {
       <div className={styles.sectionHeader}>
         <span className={styles.sectionLabel}>
           <span className={styles.sectionLabelLine} aria-hidden="true" />
-          {lang === 'es' ? 'FORMACIÓN ACADÉMICA' : 'ACADEMIC BACKGROUND'}
+          {tr.sectionEduSub}
         </span>
         <h2>{tr.sectionEdu}</h2>
       </div>

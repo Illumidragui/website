@@ -23,6 +23,11 @@ export const t = {
     ],
     githubBtn:       'Ver en GitHub',
     exploreBtn:      'Explorar el pipeline de seguridad',
+    terminalCmd:     'Click para explorar el pipeline de seguridad',
+    sectionEduSub:   'FORMACIÓN ACADÉMICA',
+    portfolioLabel:  'PROYECTOS',
+    portfolioTitle:  'Portfolio',
+    portfolioSub:    'Proyectos de seguridad e infraestructura cloud que he construido.',
   },
   en: {
     navExperience:   'Experience',
@@ -48,5 +53,10 @@ export const t = {
     ],
     githubBtn:       'View on GitHub',
     exploreBtn:      'Explore the security pipeline',
+    terminalCmd:     'Click to explore the security pipeline',
+    sectionEduSub:   'ACADEMIC BACKGROUND',
+    portfolioLabel:  'PROJECTS',
+    portfolioTitle:  'Portfolio',
+    portfolioSub:    'Security and cloud infrastructure projects I have built.',
   },
 };

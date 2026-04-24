@@ -75,7 +75,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/Illumidragui/devsecops-pipeline',
+            href: 'https://github.com/Illumidragui ',
             label: 'GitHub',
             position: 'right',
           },

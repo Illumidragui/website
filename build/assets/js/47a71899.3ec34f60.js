@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[819],{1538:s=>{s.exports=JSON.parse('{"label":"gitleaks","permalink":"/blog/tags/gitleaks","allTagsPath":"/blog/tags","count":1}')}}]);
