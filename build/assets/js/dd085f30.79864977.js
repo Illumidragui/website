@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdevsecops_site=self.webpackChunkdevsecops_site||[]).push([[273],{6065:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/cicd","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
