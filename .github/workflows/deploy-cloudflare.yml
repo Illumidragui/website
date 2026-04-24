@@ -29,5 +29,5 @@ jobs:
     needs: build
     uses: Illumidragui/.github/.github/workflows/_reusable.deploy-cloudflare.yml@main
     with:
-      cf-project-name: website
+      cf-project-name: shengsite
     secrets: inherit
