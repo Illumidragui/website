@@ -1,0 +1,93 @@
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--op-border);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--op-text);
+  margin-bottom: 0.5rem;
+}
+
+.intro {
+  font-size: 0.9rem;
+  color: var(--op-muted);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--op-border);
+  border: 1px solid var(--op-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cell {
+  background: var(--op-bg-card);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 0.2s ease;
+}
+
+.cell:hover {
+  background: var(--op-bg-hover);
+}
+
+.cellActive {
+  background: rgba(74, 222, 128, 0.03) !important;
+}
+
+.num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--op-border);
+  margin-bottom: 4px;
+}
+
+.numActive {
+  color: var(--op-accent);
+}
+
+.period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--op-muted);
+  letter-spacing: 0.04em;
+}
+
+.role {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--op-text);
+  margin-top: 2px;
+}
+
+.desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--op-muted);
+  line-height: 1.6;
+}
