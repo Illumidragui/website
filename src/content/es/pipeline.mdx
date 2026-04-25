@@ -1,0 +1,187 @@
+Esta página documenta el pipeline CI/CD de DevSecOps implementado en devsecops-app — un workflow de GitHub Actions que integra cinco herramientas de seguridad en cada etapa del ciclo de vida de entrega de software.
+
+## Vista General
+
+```text
+git push → main
+    │
+    ▼
+[Stage 1] SECRET SCANNING (Gitleaks)
+    │  Blocks if any hard-coded secret detected in full git history
+    ▼
+[Stage 2] UNIT TESTING (Pytest)
+    │  Verifies functional correctness before security tools run
+    ├──────────────────────────────────┐
+    ▼                                  ▼
+[Stage 3a] SAST (SonarCloud)    [Stage 3b] SCA (Snyk)
+    └──────────────────────────────────┘
+    │  Both run in parallel after tests pass
+    ▼
+[Stage 4] CONTAINER BUILD (Docker → GHCR)
+    │  Single build, tagged with commit SHA
+    ├──────────────────────────────────┐
+    ▼                                  ▼
+[Stage 5a] CONTAINER SCAN (Trivy)  [Stage 5b] DAST (OWASP ZAP)
+    └──────────────────────────────────┘
+    │  Both run in parallel against the built image
+    ▼
+[Stage 6] CONSOLIDATED REPORT
+    Artifact retained 7 days
+```
+
+## Etapa 1 — Escaneo de Secretos con Gitleaks
+
+Gitleaks analiza todo el historial del repositorio en busca de secretos antes de que se compile o pruebe cualquier código.
+
+**Qué detecta:**
+
+- Claves de API y tokens incrustados en archivos fuente
+- Contraseñas en archivos de configuración
+- Claves privadas confirmadas accidentalmente
+- Credenciales en exports de variables de entorno
+
+**Configuración:** Conjunto de reglas predeterminado de Gitleaks (detecta más de 100 patrones de secretos). El pipeline falla inmediatamente ante cualquier hallazgo — los secretos nunca deben llegar a un artefacto de compilación.
+
+## Etapa 2 — Pruebas Unitarias con Pytest
+
+La suite de pruebas Flask verifica que la aplicación funcione correctamente antes de invocar las herramientas de seguridad.
+
+**Cobertura de pruebas:**
+
+- `GET /` → HTTP 200, cuerpo JSON con `status: "ok"`
+- `GET /health` → HTTP 200, cuerpo JSON con `healthy: true`
+
+**¿Por qué probar antes de escanear?** Las herramientas SAST analizan rutas de código — ejecutarlas sobre código roto desperdicia minutos de CI y produce resultados ruidosos.
+
+## Etapa 3 — SAST con SonarCloud
+
+El Análisis Estático de Seguridad de Aplicaciones analiza el código fuente sin ejecutarlo, detectando:
+
+- Vulnerabilidades de seguridad (riesgos de inyección, uso inseguro de APIs)
+- Code smells y problemas de mantenibilidad
+- Controles de seguridad ausentes
+
+**Hallazgo resuelto:** Las rutas inicialmente carecían de declaraciones explícitas `methods=['GET']`. SonarCloud lo marcó como una violación de mínimo privilegio — las rutas solo deben aceptar los métodos HTTP que realmente gestionan. Corregido en el blueprint de Flask.
+
+## Etapa 3 — SCA con Snyk
+
+**El Análisis de Composición de Software** escanea `requirements.txt` en busca de CVEs conocidos en dependencias de terceros.
+
+**Hallazgo resuelto:** `gunicorn==22.0.0` tenía una vulnerabilidad de alta severidad. Snyk identificó la versión afectada y la versión parcheada. Actualizado a `gunicorn==23.0.0`.
+
+**Umbral:** El pipeline falla ante CVEs de severidad alta y crítica con correcciones disponibles. Las severidades bajas y medias se marcan pero no bloquean.
+
+## Etapa 4 — Construcción del Contenedor
+
+Un Dockerfile multi-etapa construye la imagen final:
+
+```dockerfile
+# Stage 1: builder — install dependencies
+FROM python:3.12-slim AS builder
+RUN pip install --prefix=/install -r requirements.txt
+
+# Stage 2: runtime — copy only what's needed
+FROM python:3.12-slim
+RUN apt-get update && apt-get upgrade -y   # patch OS packages
+COPY --from=builder /install /usr/local
+RUN useradd -m appuser                     # non-root user
+USER appuser
+CMD ["gunicorn", "app:create_app()"]
+```
+
+**Decisiones de seguridad:**
+
+- Build multi-etapa: las herramientas de compilación nunca llegan a la imagen de runtime
+- `apt-get upgrade`: los paquetes base del SO se parchean en tiempo de compilación
+- Usuario no root `appuser`: limita el radio de explosión si el contenedor es comprometido
+- Imagen etiquetada con el SHA del commit y subida a GHCR para trazabilidad inmutable
+
+## Etapa 5 — Escaneo de Contenedor con Trivy
+
+Trivy escanea la imagen construida en dos capas:
+
+| Capa | Qué verifica |
+|---|---|
+| Paquetes del SO | Librerías Debian/Ubuntu (libc, openssl, zlib…) |
+| Paquetes de aplicación | Paquetes Python de requirements.txt |
+
+**Configuración:**
+
+- Umbral de severidad: `CRITICAL,HIGH`
+- `ignore-unfixed: true` — solo bloquea en CVEs con corrección disponible
+- `.trivyignore` — riesgos conocidos aceptados documentados y suprimidos
+
+Trivy escanea la **misma imagen** subida a GHCR en la Etapa 4. Es intencional: verifica exactamente lo que se desplegará, no una copia reconstruida localmente.
+
+## Etapa 5 — Pruebas Dinámicas con OWASP ZAP
+
+OWASP ZAP inicia la aplicación desde la imagen de contenedor construida y la ataca activamente para encontrar vulnerabilidades en runtime.
+
+**Hallazgos resueltos (5 cabeceras HTTP de seguridad faltantes):**
+
+| Cabecera | Propósito |
+|---|---|
+| `X-Content-Type-Options: nosniff` | Previene ataques de sniffing de tipo MIME |
+| `Content-Security-Policy: default-src 'self'` | Mitigación XSS — restringir orígenes de recursos |
+| `Permissions-Policy: geolocation=(), microphone=(), camera=()` | Restringe el acceso a funciones del navegador |
+| `Cross-Origin-Resource-Policy: same-origin` | Previene fugas de datos entre orígenes |
+| `Cache-Control: no-store` | Evita que intermediarios cacheen datos sensibles |
+
+Los cinco cabeceras son añadidos ahora por el hook after-request `add_security_headers()` de Flask.
+
+**Configuración de reglas ZAP (`.zap/rules.tsv`):**
+
+```text
+10015	FAIL	# Missing Anti-clickjacking Header
+10021	WARN	# X-Content-Type-Options Header Missing
+10096	IGNORE  # Timestamp Disclosure
+```
+
+El control granular FAIL/WARN/IGNORE evita el ruido de alertas mientras se aplican los problemas críticos.
+
+## Etapa 6 — Informe Consolidado
+
+Scripts de shell en `scripts/` agregan todos los outputs de las herramientas:
+
+```bash
+scripts/
+├── generate_consolidated_report.sh  # orchestrator
+├── snyk_summary.sh                  # parses Snyk SARIF
+├── trivy_summary.sh                 # parses Trivy JSON
+└── zap_summary.sh                   # parses ZAP HTML
+```
+
+El output se publica como un resumen del paso de GitHub Actions y se empaqueta como un artefacto descargable (retención de 7 días). Cada push a main produce una instantánea de seguridad completa del pipeline.
+
+## Cabeceras de Seguridad de la Aplicación
+
+La app Flask (`app/routes.py`) añade cabeceras de seguridad mediante un hook after-request:
+
+```python
+@blueprint.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Content-Security-Policy'] = "default-src 'self'"
+    response.headers['Permissions-Policy'] = 'geolocation=(), microphone=(), camera=()'
+    response.headers['Cross-Origin-Resource-Policy'] = 'same-origin'
+    response.headers['Cache-Control'] = 'no-store'
+    return response
+```
+
+Estas cabeceras fueron añadidas como resultado directo de los hallazgos de OWASP ZAP — un ejemplo concreto de DAST impulsando la remediación.
+
+## Resumen del Stack Tecnológico
+
+| Componente | Tecnología |
+|---|---|
+| Aplicación | Python 3.12, Flask 3.1.3 |
+| Servidor | Gunicorn 23.0.0 |
+| Contenedor | Docker (multi-etapa, no root) |
+| Registro | GitHub Container Registry (GHCR) |
+| CI/CD | GitHub Actions |
+| Escaneo de Secretos | Gitleaks |
+| SAST | SonarCloud |
+| SCA | Snyk |
+| Escaneo de Contenedor | Trivy (Aqua Security) |
+| DAST | OWASP ZAP |
+| Pruebas | Pytest 8.2.0 |

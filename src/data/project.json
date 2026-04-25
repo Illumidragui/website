@@ -53,75 +53,39 @@
   "portfolio": {
     "en": [
       {
-        "id": "devsecops-pipeline",
-        "type": "security",
-        "typeLabel": "CI/CD Security",
-        "title": "DevSecOps Pipeline",
-        "description": "GitHub Actions workflow integrating 5 security gates across the full delivery lifecycle of a Flask application — secret scanning, unit tests, SAST, SCA, container build, container scan, and DAST running in parallel where possible.",
-        "stack": ["GitHub Actions", "Gitleaks", "SonarCloud", "Snyk", "Trivy", "OWASP ZAP", "Docker", "Python"],
-        "links": [
-          { "label": "CI/CD Docs", "url": "/infrastructure", "external": false },
-          { "label": "GitHub", "url": "https://github.com/Illumidragui/devsecops-pipeline", "external": true }
-        ],
-        "highlights": [
-          "Shift-left: secrets blocked before code is compiled",
-          "SAST + SCA in parallel — SonarCloud and Snyk",
-          "DAST found 5 missing security headers → all fixed",
-          "Single image build verified by both Trivy and ZAP"
-        ]
-      },
-      {
         "id": "kuberlab",
         "type": "infrastructure",
-        "typeLabel": "Cloud Infrastructure",
-        "title": "KuberLab — AWS Kubernetes Lab",
-        "description": "Production-realistic Kubernetes platform on AWS provisioned with Terraform. GitOps-driven application delivery via ArgoCD. Zero public IPs — all access through Tailscale VPN. Designed to be torn down and rebuilt repeatedly.",
-        "stack": ["AWS", "Terraform", "k3s", "ArgoCD", "Helm", "Tailscale", "cert-manager", "ingress-nginx"],
+        "typeLabel": "Kubernetes Lab",
+        "title": "KuberLab — Personal Kubernetes Lab on AWS",
+        "description": "A personal Kubernetes lab on AWS built to practise and iterate through destroy/rebuild cycles. Terraform provisions the cluster, ArgoCD drives all deployments via GitOps, and GitHub Actions reusable workflows handle the CI/CD pipeline — all as one integrated lab.",
+        "stack": ["Terraform", "k3s", "ArgoCD", "Helm", "ingress-nginx", "cert-manager", "Tailscale", "GitHub Actions", "AWS"],
         "links": [
           { "label": "Infrastructure Docs", "url": "/infrastructure", "external": false }
         ],
         "highlights": [
-          "Two-phase Terraform deploy (network → platform)",
-          "App of Apps pattern for GitOps at scale",
-          "No public IP on EC2 — Tailscale-only access",
-          "Dynamic AMI lookup — no hardcoded IDs"
+          "Built for repeated destroy/rebuild cycles — not kept running",
+          "GitOps via ArgoCD App of Apps pattern",
+          "No public IP on EC2 — Tailscale-only cluster access",
+          "Pipeline centralised as reusable GitHub Actions workflows"
         ]
       }
     ],
     "es": [
       {
-        "id": "devsecops-pipeline",
-        "type": "security",
-        "typeLabel": "CI/CD Security",
-        "title": "Pipeline DevSecOps",
-        "description": "Workflow de GitHub Actions que integra 5 controles de seguridad a lo largo del ciclo de vida completo de una aplicación Flask — escaneo de secretos, pruebas unitarias, SAST, SCA, build del contenedor, escaneo del contenedor y DAST en paralelo donde es posible.",
-        "stack": ["GitHub Actions", "Gitleaks", "SonarCloud", "Snyk", "Trivy", "OWASP ZAP", "Docker", "Python"],
-        "links": [
-          { "label": "Docs CI/CD", "url": "/infrastructure", "external": false },
-          { "label": "GitHub", "url": "https://github.com/Illumidragui/devsecops-pipeline", "external": true }
-        ],
-        "highlights": [
-          "Shift-left: secretos bloqueados antes de compilar",
-          "SAST + SCA en paralelo — SonarCloud y Snyk",
-          "DAST encontró 5 cabeceras de seguridad ausentes → todas corregidas",
-          "Una sola build de imagen verificada por Trivy y ZAP"
-        ]
-      },
-      {
         "id": "kuberlab",
         "type": "infrastructure",
         "typeLabel": "Infraestructura Cloud",
         "title": "KuberLab — Laboratorio Kubernetes en AWS",
-        "description": "Plataforma Kubernetes realista en AWS provisionada con Terraform. Entrega de aplicaciones mediante GitOps con ArgoCD. Sin IPs públicas — todo el acceso a través de Tailscale VPN. Diseñado para ser destruido y reconstruido repetidamente.",
-        "stack": ["AWS", "Terraform", "k3s", "ArgoCD", "Helm", "Tailscale", "cert-manager", "ingress-nginx"],
+        "description": "Laboratorio personal de Kubernetes en AWS construido para practicar e iterar a través de ciclos de destrucción y reconstrucción. Terraform provisiona el clúster, ArgoCD gestiona todos los despliegues mediante GitOps, y flujos de trabajo reutilizables de GitHub Actions gestionan el pipeline de CI/CD — todo como un laboratorio integrado.",
+        "stack": ["Terraform", "k3s", "ArgoCD", "Helm", "ingress-nginx", "cert-manager", "Tailscale", "GitHub Actions", "AWS"],
         "links": [
           { "label": "Documentación de Infra", "url": "/infrastructure", "external": false }
         ],
         "highlights": [
-          "Despliegue Terraform en dos fases (red → plataforma)",
-          "Patrón App of Apps para GitOps a escala",
-          "Sin IP pública en EC2 — acceso solo por Tailscale",
-          "Búsqueda dinámica de AMI — sin IDs hardcodeados"
+          "Construido para ciclos repetidos de destrucción y reconstrucción",
+          "GitOps mediante el patrón App of Apps de ArgoCD",
+          "Sin IP pública en EC2 — acceso al clúster solo por Tailscale",
+          "Pipeline centralizado como workflows reutilizables de GitHub Actions"
         ]
       }
     ]

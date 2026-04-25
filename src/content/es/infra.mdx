@@ -1,0 +1,203 @@
+Un laboratorio de infraestructura personal para aprender Kubernetes, ArgoCD, Helm y Terraform en una configuración realista de producción. El objetivo es desplegar y destruir el stack completo repetidamente para construir intuición operacional — no solo teoría.
+
+## Qué hace
+
+Provisiona una plataforma Kubernetes completa en AWS usando Terraform, y delega el despliegue de aplicaciones a ArgoCD mediante GitOps. Todo es accesible a través de Tailscale VPN — sin ninguna IP pública en el clúster.
+
+## Arquitectura
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│  Developer machine (WSL2)                                       │
+│                                                                 │
+│  terraform apply ──────────────────────────────────────────┐   │
+│  kubectl / helm  ──── Tailscale VPN ──────────────────┐    │   │
+└──────────────────────────────────────────────────────--|----│---┘
+                                                        │    │
+                      ┌─────────────────────────────────│----│──────────────────┐
+                      │  AWS (us-east-1)                │    │                  │
+                      │                                 │    │                  │
+                      │  ┌──────────────────────────────▼────▼────────────┐    │
+                      │  │  VPC  10.0.0.0/16                              │    │
+                      │  │                                                 │    │
+                      │  │  ┌─────────────────┐                           │    │
+                      │  │  │  Public subnet   │                           │    │
+                      │  │  │  10.0.0.0/24    │                           │    │
+                      │  │  │  NAT Gateway     │                           │    │
+                      │  │  │  Internet GW     │                           │    │
+                      │  │  └────────┬────────┘                           │    │
+                      │  │           │ outbound only                       │    │
+                      │  │  ┌────────▼────────────────────────┐           │    │
+                      │  │  │  Private subnet  10.0.1.0/24   │           │    │
+                      │  │  │                                  │           │    │
+                      │  │  │  EC2 t3.medium (no public IP)   │           │    │
+                      │  │  │  ├── Tailscale (VPN node) ◄─────────────────┘   │
+                      │  │  │  └── k3s (Kubernetes)            │           │    │
+                      │  │  │       ├── argo-cd                │           │    │
+                      │  │  │       ├── ingress-nginx           │           │    │
+                      │  │  │       ├── cert-manager            │           │    │
+                      │  │  │       ├── tailscale-operator      │           │    │
+                      │  │  │       └── syesite                 │           │    │
+                      │  │  └─────────────────────────────────┘           │    │
+                      │  └─────────────────────────────────────────────────┘    │
+                      │                                                          │
+                      │  S3 bucket: devsecops-infra-tfstate                     │
+                      │  (Terraform remote state)                                │
+                      └──────────────────────────────────────────────────────────┘
+```
+
+## Estructura del repositorio
+
+El proyecto se divide en tres repositorios Git:
+
+```text
+kuberlab/
+├── devsecops-infra/          # Terraform — provisions AWS + deploys ArgoCD
+│   ├── main.tf               # Root: provider config + module wiring
+│   ├── variables.tf          # Input variable declarations
+│   ├── locals.tf             # Common tags, name prefixes
+│   ├── outputs.tf            # instance_ip, tailscale_hostname
+│   ├── backend.tf            # S3 remote state
+│   ├── terraform.tfvars      # Secret values — gitignored
+│   └── tf-modules/
+│       ├── aws-vpc/          # VPC, subnets, NAT Gateway, route tables
+│       ├── aws-ec2/          # EC2 instance, security group, k3s via user_data
+│       └── helm-argocd/      # ArgoCD + App of Apps via Helm provider
+│
+├── devsecops-helm/           # Helm charts — managed by ArgoCD
+│   ├── cert-manager-clusterissuer/
+│   ├── ingress-nginx/
+│   ├── tailscale-operator/
+│   └── syesite-chart/
+│
+└── argocd-app-of-apps/       # GitOps source — defines all ArgoCD Applications
+    ├── Chart.yaml
+    └── values.yaml           # One entry per managed application
+```
+
+## Stack
+
+| Capa | Tecnología | Propósito |
+|---|---|---|
+| Cloud | AWS | VPC, EC2, NLB, S3 |
+| Infraestructura como Código | Terraform | Provisiona todos los recursos de AWS |
+| Kubernetes | k3s | Clúster ligero de un solo nodo |
+| VPN | Tailscale | Acceso seguro sin configuración, sin IP pública |
+| Gestor de paquetes | Helm | Despliega ArgoCD y aplicaciones |
+| GitOps | ArgoCD | Sincronización continua del estado del clúster desde Git |
+| Ingress | ingress-nginx | Enrutamiento HTTP/HTTPS dentro del clúster |
+| TLS | cert-manager + Let's Encrypt | Provisión automática de certificados SSL |
+| Estado remoto | S3 | Estado remoto de Terraform con cifrado AES256 |
+
+## Cómo se despliega
+
+El despliegue ocurre en dos fases porque el provider Helm de Terraform necesita un kubeconfig funcional, que solo existe después de que la Fase 1 crea el EC2 + nodo k3s.
+
+### Fase 1 — Red + Cómputo
+
+```bash
+cd devsecops-infra
+terraform init
+terraform apply -target=module.vpc -target=module.ec2 -var-file=terraform.tfvars
+```
+
+**Terraform crea:**
+
+1. VPC con subnets públicas/privadas, NAT Gateway, Internet Gateway, tablas de rutas
+2. Instancia EC2 en la subnet privada
+3. El script `user_data` se ejecuta en el primer arranque: instala Tailscale (se une a la VPN), instala k3s con la IP de Tailscale como TLS SAN, deshabilita Traefik
+
+Una vez que el nodo aparece en el panel de administración de Tailscale, copia el kubeconfig:
+
+```bash
+TAILSCALE_IP=<ip-from-tailscale-admin>
+ssh ec2-user@$TAILSCALE_IP "sudo cat /etc/rancher/k3s/k3s.yaml" \
+  | sed "s/127.0.0.1/$TAILSCALE_IP/g" > ~/.kube/devsecops-config
+export KUBECONFIG=~/.kube/devsecops-config
+kubectl get nodes  # should show Ready
+```
+
+### Fase 2 — Plataforma Kubernetes
+
+```bash
+terraform apply -var-file=terraform.tfvars
+```
+
+**Terraform despliega mediante Helm:**
+
+1. **ingress-nginx** — crea un Network Load Balancer de AWS
+2. **argo-cd** — plano de control de ArgoCD
+3. **argocd-apps** — el chart App of Apps, apuntando al repo de GitOps
+
+A partir de este punto ArgoCD toma el control. Todas las aplicaciones tienen `automated: prune: true, selfHeal: true` — cualquier deriva respecto a Git se corrige automáticamente.
+
+## Decisiones clave de diseño
+
+### Flag create por módulo
+
+Cada módulo Terraform acepta una variable `create = bool`. Configurarla a `false` omite toda la creación de recursos sin eliminar la llamada al módulo de `main.tf`. Así se orquesta el despliegue en dos fases sin workspaces separados.
+
+### Providers dentro del módulo hijo
+
+Los providers `kubernetes` y `helm` se declaran dentro de `tf-modules/helm-argocd/main.tf`, no en la raíz. Esto hace el módulo autónomo y evita problemas de dependencia circular, pero significa que `depends_on` no puede usarse en él — el orden se gestiona con el flag `create` y `-target` en la primera ejecución.
+
+### Sin IP pública en EC2
+
+El nodo EC2 vive en la subnet privada. La única vía de acceso es a través de Tailscale. El grupo de seguridad permite todo el tráfico interno de la VPC y todo el tráfico saliente, pero ningún tráfico público entrante.
+
+### Patrón App of Apps
+
+ArgoCD se inicializa con una única release de Helm (`argocd-apps`) que apunta al repo de GitOps. Ese repo define todas las demás aplicaciones. Añadir una nueva app significa añadir una entrada en `argocd-app-of-apps/values.yaml` y hacer push — ArgoCD la detecta automáticamente.
+
+### Búsqueda dinámica de AMI
+
+El módulo EC2 usa un bloque `data "aws_ami"` para obtener siempre el último AMI de Amazon Linux 2023. Sin IDs de AMI hardcodeados que se romperían entre regiones o quedarían obsoletos.
+
+## Destruir y redesplegar
+
+El laboratorio está diseñado para ser destruido y reconstruido repetidamente. El bucket S3 de estado sobrevive al destroy — el próximo `terraform init` retoma donde lo dejó.
+
+```bash
+terraform destroy -var-file=terraform.tfvars
+
+# Redeploy
+terraform apply -target=module.vpc -target=module.ec2 -var-file=terraform.tfvars
+# (copy kubeconfig — new instance = new Tailscale IP)
+terraform apply -var-file=terraform.tfvars
+```
+
+## Estado actual
+
+| Componente | Estado |
+|---|---|
+| VPC + subnets + NAT Gateway | Desplegado |
+| EC2 t3.medium + k3s | Desplegado, nodo Ready |
+| Acceso a nivel de nodo por Tailscale | Funcionando |
+| ArgoCD | Funcionando, App of Apps sincronizado |
+| ingress-nginx | Funcionando |
+| cert-manager + ClusterIssuer | Sincronizado |
+| syesite (app de portfolio) | Funcionando — pendiente config DNS |
+| tailscale-operator | OutOfSync — credenciales OAuth no configuradas |
+
+**Pendiente:**
+
+- Apuntar el registro DNS A de `shengjunye.me` a la IP externa del NLB
+- Configurar credenciales OAuth de Tailscale para el operador en el clúster
+- Planificar migración a Oracle Cloud Free Tier (misma arquitectura, diferentes módulos de provider)
+
+## Qué aprendí construyendo esto
+
+- Cómo se componen los módulos Terraform y cómo el alcance de los providers afecta la gestión de dependencias
+- Por qué un despliegue en dos fases es necesario cuando un provider depende de infraestructura creada en el mismo apply
+- Cómo funciona el patrón App of Apps en ArgoCD y por qué escala mejor que gestionar las aplicaciones individualmente
+- Cómo Tailscale elimina la necesidad de hosts bastión, VPNs o IPs públicas para el acceso al laboratorio
+- Las restricciones de recursos de Kubernetes de un solo nodo (y por qué t2.micro no es suficiente para una carga real)
+- Cómo cert-manager automatiza el ciclo de vida de los certificados TLS con Let's Encrypt
+
+## Mejoras planificadas
+
+- Migrar a Oracle Cloud Free Tier (siempre gratuito `VM.Standard.A1.Flex` — 4 OCPU / 24 GB RAM)
+- Separar la Fase 1 y Fase 2 en directorios Terraform independientes para evitar problemas de inicialización de providers en despliegues nuevos
+- Añadir un script de shell para automatizar el paso de copia del kubeconfig
+- Añadir Prometheus + Grafana para observabilidad
+- Configurar políticas de red para restringir el tráfico pod a pod

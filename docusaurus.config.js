@@ -1,7 +1,7 @@
 // @ts-check
 
 const dockerImageTag = process.env.DOCKER_IMAGE_TAG || 'latest';
-const urlvar = process.env.DOCUSAURUS_CONF_URL || 'http://localhost:80';
+const urlvar = process.env.DOCUSAURUS_CONF_URL || 'http://localhost:3000';
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
@@ -37,7 +37,7 @@ const config = {
           showReadingTime: true,
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/styles/custom.css'),
         },
       }),
     ],
@@ -53,20 +53,20 @@ const config = {
         respectPrefersColorScheme: false,
       },
       navbar: {
-        title: '~/Illumidragui',
+        title: '~/whoami',
         logo: {
           alt: 'Shield Logo',
           src: 'img/shield.svg',
         },
         items: [
           {
-            to: '/portfolio',
-            label: 'Portfolio',
+            to: '/infrastructure',
+            label: 'How this site is built',
             position: 'left',
           },
           {
-            to: '/infrastructure',
-            label: 'Infrastructure',
+            to: '/portfolio',
+            label: 'Portfolio',
             position: 'left',
           },
           { to: '/blog', label: 'Security Blog', position: 'left' },
@@ -83,33 +83,8 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Navegación',
-            items: [
-              { label: 'Experiencia', href: '/#experience' },
-              { label: 'Security Blog', to: '/blog' },
-            ],
-          },
-          {
-            title: 'Security Tools',
-            items: [
-              { label: 'Gitleaks', href: 'https://github.com/gitleaks/gitleaks' },
-              { label: 'OWASP ZAP', href: 'https://www.zaproxy.org' },
-              { label: 'Trivy', href: 'https://aquasecurity.github.io/trivy' },
-              { label: 'SonarCloud', href: 'https://sonarcloud.io' },
-              { label: 'Snyk', href: 'https://snyk.io' },
-            ],
-          },
-          {
-            title: 'Contacto',
-            items: [
-              { label: 'GitHub', href: 'https://github.com/Illumidragui' },
-              { label: 'LinkedIn', href: 'https://linkedin.com/in/shjye' },
-            ],
-          },
-        ],
-        copyright: `Docker Image Tag: ${dockerImageTag} — © ${new Date().getFullYear()} Sheng Jun Ye. Built with Docusaurus.`,
+        links: [],
+        copyright: `© ${new Date().getFullYear()} ShengSite | Built with Docusaurus`,
       },
       prism: {
         theme: lightCodeTheme,

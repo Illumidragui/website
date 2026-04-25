@@ -1,0 +1,54 @@
+.descProse {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--op-muted);
+  border-left: 2px solid rgba(74, 222, 128, 0.15);
+  padding-left: 12px;
+}
+
+.descStack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 7px 11px;
+  background: rgba(74, 222, 128, 0.03);
+  border: 1px solid var(--op-border);
+  border-left: 2px solid rgba(74, 222, 128, 0.3);
+  border-radius: 0 4px 4px 0;
+}
+
+.descStackLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--op-accent);
+  opacity: 0.6;
+}
+
+.descStackPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.descStackPill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(74, 222, 128, 0.05);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  color: #86efac;
+  white-space: nowrap;
+}
+
+:global([data-theme='light']) .descStackPill {
+  color: #155d27;
+  background: rgba(21, 93, 39, 0.08);
+  border-color: rgba(21, 93, 39, 0.28);
+}

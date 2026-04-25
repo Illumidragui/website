@@ -1,0 +1,85 @@
+.wrapper {
+  position: relative;
+  padding-left: 28px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--op-border);
+}
+
+.entry {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.dot {
+  position: absolute;
+  left: -24px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--op-bg);
+  border: 2px solid var(--op-accent);
+  z-index: 1;
+}
+
+.card {
+  background: var(--op-bg-card);
+  border: 1px solid var(--op-border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+
+.card:hover {
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.role {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--op-text);
+  margin-bottom: 3px;
+}
+
+.company {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--op-accent);
+  letter-spacing: 0.05em;
+}
+
+.date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--op-accent);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.body {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
