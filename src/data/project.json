@@ -96,21 +96,51 @@
       "date": "Aug. 2023 - Nov. 2025",
       "title": "DevSecOps Engineer",
       "subtitle": "Merabytes",
-      "description": [
-        "> Development and implementation of a SaaS platform for automating internal and external security audits, integrating reconnaissance, anomalous behavior detection and AI-powered report generation.",
-        "- Development and maintenance of cloud environments using Terraform, automating resource provisioning and ensuring consistency across environments.",
-        "- Implementation of CI/CD pipelines with GitHub Actions integrating SAST (SonarQube), SCA (Snyk) and DAST (OWASP ZAP), ensuring no code with critical vulnerabilities reaches production.",
-        "- Containerization and hardening of Docker images, reducing the attack surface and final image size through Multi-stage builds.",
-        "- Secrets management with Azure Key Vault and AWS IAM, enforcing access policies and least privilege principle across pipelines and cloud environments.",
-        "- Development of Bash, Python and PowerShell scripts to automate administration, monitoring and deployment tasks across cloud and on-premise environments.",
-        "- Contributed to ENS High and ISO 27001 compliance by implementing key technical controls: least privilege access management, corporate VPN (Zero Trust) and a security maturity roadmap.",
-        "- Stack: Terraform, GitHub Actions, SonarQube, Snyk, OWASP ZAP, Docker, Azure Key Vault, AWS IAM, Kubernetes"
+      "summary": "Designed the security infrastructure of a SaaS audit platform from scratch — cloud automation with Terraform, security-gated CI/CD pipelines, and technical controls for ENS High and ISO 27001 compliance.",
+      "summary_es": "En Merabytes diseñé la infraestructura de seguridad de una plataforma SaaS desde cero. Con bagaje de pentester, sabía exactamente qué controles importaban y por qué.",
+      "highlights": [
+        "CI/CD pipeline with SAST, SCA, and DAST gates — no critical vulnerabilities reached production",
+        "ENS High & ISO 27001 compliance via Zero Trust VPN and least-privilege access management",
+        "Container hardening via multi-stage Docker builds: reduced attack surface and image size"
       ],
-      "description_es": [
-        "> En Merabytes diseñé la infraestructura de seguridad de una plataforma SaaS desde cero. Con bagaje de pentester, sabía exactamente qué controles importaban y por qué.",
-        "- Cloud & Infra: Terraform, Kubernetes, ArgoCD, Docker",
-        "- CI/CD: GitHub Actions, SonarQube (SAST), Snyk (SCA), OWASP ZAP (DAST)",
-        "- Compliance: ENS Alta, ISO 27001, Azure Key Vault, AWS IAM"
+      "highlights_es": [
+        "Pipeline CI/CD con gates SAST/SCA/DAST — ninguna vulnerabilidad crítica llegó a producción",
+        "Compliance ENS Alta e ISO 27001 con VPN Zero Trust y gestión de acceso por mínimo privilegio",
+        "Hardening de contenedores con Docker multi-stage: menor superficie de ataque e imagen reducida"
+      ],
+      "details": [
+        {
+          "label": "Architecture",
+          "label_es": "Arquitectura",
+          "text": "Multi-environment cloud infrastructure provisioned with Terraform. SaaS platform with containerised services deployed on Kubernetes, secrets managed via Key Vault and IAM.",
+          "text_es": "Infraestructura cloud multi-entorno provisionada con Terraform. Plataforma SaaS con servicios contenerizados en Kubernetes, secretos gestionados con Key Vault e IAM.",
+          "stack": ["Terraform", "Kubernetes", "Docker", "AWS", "Azure Key Vault", "AWS IAM"]
+        },
+        {
+          "label": "CI/CD & Security pipeline",
+          "label_es": "Pipeline CI/CD & Seguridad",
+          "text": "GitHub Actions pipeline with sequential and parallel security gates. Every push to main triggers all five tools — none are skipped, all must pass before deployment.",
+          "text_es": "Pipeline de GitHub Actions con gates de seguridad secuenciales y en paralelo. Cada push a main ejecuta las cinco herramientas — ninguna se salta, todas deben pasar antes del despliegue.",
+          "stack": ["GitHub Actions", "SonarQube (SAST)", "Snyk (SCA)", "OWASP ZAP (DAST)", "Bash", "Python", "PowerShell"]
+        },
+        {
+          "label": "Technical challenges",
+          "label_es": "Retos técnicos",
+          "text": "Integrating 5 security tools without pushing pipeline runtime beyond acceptable thresholds. Calibrating severity thresholds to eliminate false positives without sacrificing real vulnerability detection.",
+          "text_es": "Integrar 5 herramientas de seguridad sin alargar el tiempo de pipeline más allá de lo aceptable. Calibrar umbrales de severidad para eliminar falsos positivos sin perder detección real."
+        },
+        {
+          "label": "Key decisions",
+          "label_es": "Decisiones clave",
+          "text": "Adopted ENS High as the security baseline before ISO 27001 due to regulatory requirements. Secrets managed with Azure Key Vault integrated directly into pipeline workflows — no hardcoded credentials.",
+          "text_es": "Adoptar ENS Alta como baseline de seguridad antes que ISO 27001 por requerimiento regulatorio. Secretos gestionados con Azure Key Vault integrado directamente en los workflows — sin credenciales en código."
+        },
+        {
+          "label": "Learnings",
+          "label_es": "Aprendizajes",
+          "text": "Security must be a gate, not a checklist. Technical controls only work when they have clear ownership and accountability across teams.",
+          "text_es": "La seguridad debe ser un gate, no un checklist. Los controles técnicos solo funcionan cuando tienen ownership claro y responsabilidad distribuida."
+        }
       ]
     },
     {
@@ -118,19 +148,45 @@
       "date": "Nov. 2021 - Jul. 2023",
       "title": "Pentester",
       "subtitle": "BMM Testlabs",
-      "description": [
-        "> Execution of penetration tests (black-box, grey-box, and white-box) on web applications, mobile apps, and systems, identifying exploitable vulnerabilities in real environments.",
-        "Identification and exploitation of vulnerabilities, developing proof-of-concepts (PoC) and documenting attack vectors to support remediation efforts.",
-        "Conducting security testing on Android, iOS, macOS, and Windows applications, using both static and dynamic analysis techniques.",
-        "Participation in technical audits and compliance projects, including PCI DSS (ASV), vulnerability validation, and remediation verification.",
-        "Preparation of detailed technical reports using OWASP methodologies and the MITRE ATT&CK framework, providing mitigation recommendations aligned with business objectives.",
-        "- Methodologies: OWASP, MITRE ATT&CK, PCI DSS (ASV)"
+      "summary": "Executed black-box, grey-box, and white-box penetration tests on web applications, mobile apps, and desktop systems. Identified and exploited vulnerabilities, developed PoCs, and produced OWASP/MITRE ATT&CK-aligned technical reports.",
+      "summary_es": "Dos años ejecutando ataques reales me enseñaron cómo piensa un atacante. Trabajé en el espectro completo: aplicaciones web, móviles y entornos de compliance.",
+      "highlights": [
+        "Full-spectrum pentesting across web, iOS, Android, macOS, and Windows platforms",
+        "PCI DSS (ASV) compliance testing, vulnerability validation, and remediation verification",
+        "OWASP and MITRE ATT&CK-aligned reporting with actionable mitigation recommendations"
       ],
-      "description_es": [
-        "> Dos años ejecutando ataques reales me enseñaron cómo piensa un atacante. Trabajé en el espectro completo en aplicaciones web, móviles y entornos de compliance.",
-        "- Testing: Black-box, Grey-box, White-box",
-        "- Plataformas: Web, iOS, Android, macOS, Windows",
-        "- Metodologías: OWASP, MITRE ATT&CK, PCI DSS (ASV)"
+      "highlights_es": [
+        "Pentesting de espectro completo: web, iOS, Android, macOS y Windows",
+        "Auditorías PCI DSS (ASV) y verificación de remediación",
+        "Informes técnicos alineados con OWASP y MITRE ATT&CK con recomendaciones accionables"
+      ],
+      "details": [
+        {
+          "label": "Testing methodology",
+          "label_es": "Metodología de testing",
+          "text": "Black/grey/white-box engagements across web, mobile, and desktop. Isolated lab environments for vulnerability reproduction and PoC development.",
+          "text_es": "Encargos black/grey/white-box en web, móvil y escritorio. Entornos de laboratorio aislados para reproducción de vulnerabilidades y desarrollo de PoCs.",
+          "stack": ["Burp Suite", "Metasploit", "Nmap", "OWASP ZAP", "MobSF", "Frida"]
+        },
+        {
+          "label": "Compliance & Reporting",
+          "label_es": "Compliance & Reporting",
+          "text": "PCI DSS (ASV) vulnerability validation and remediation verification. Technical reports structured around OWASP methodology and MITRE ATT&CK for threat actor context.",
+          "text_es": "Validación de vulnerabilidades y verificación de remediación PCI DSS (ASV). Informes técnicos estructurados alrededor de la metodología OWASP y MITRE ATT&CK para contexto de amenaza.",
+          "stack": ["MITRE ATT&CK", "OWASP", "PCI DSS ASV"]
+        },
+        {
+          "label": "Key decisions",
+          "label_es": "Decisiones clave",
+          "text": "Prioritised CVSS + business context over raw severity score for vulnerability ranking. Aligned all reports to MITRE ATT&CK to provide threat actor context beyond pure technical findings.",
+          "text_es": "Priorizar CVSS + contexto de negocio sobre severidad pura para el ranking de vulnerabilidades. Alinear todos los informes a MITRE ATT&CK para dar contexto de amenaza real más allá de los hallazgos técnicos."
+        },
+        {
+          "label": "Learnings",
+          "label_es": "Aprendizajes",
+          "text": "Attackers think in attack chains, not isolated vulnerabilities. A pentest report is only as valuable as its actionability for the receiving team.",
+          "text_es": "El atacante piensa en cadenas de ataque, no en vulnerabilidades aisladas. Un informe de pentest solo tiene valor si es accionable para el equipo receptor."
+        }
       ]
     },
     {
@@ -138,16 +194,45 @@
       "date": "Jan. 2019 - Oct. 2021",
       "title": "Java Developer",
       "subtitle": "Everis (NTT DATA)",
-      "description": [
-        "End-to-end development of web applications in Java and JSP, integrating SQL databases and web services to deliver scalable and maintainable solutions.",
-        "Implementation and consumption of APIs, workflow automation, and data-access optimization using MyBatis to improve application performance.",
-        "Collaboration with multidisciplinary teams in agile development environments to deliver high-quality solutions while meeting project deadlines and requirements.",
-        "- Stack: Java, JSP, SQL, MyBatis, REST APIs"
+      "summary": "Developed end-to-end web applications in Java and JSP, integrating SQL databases, REST APIs, and MyBatis for data-access optimization. Delivered in agile, multidisciplinary teams with a focus on maintainability and performance.",
+      "summary_es": "Mi punto de partida fue el desarrollo. Años después, como pentester, iba a explotar exactamente las decisiones técnicas que aquí tomábamos sin pensar en sus consecuencias de seguridad.",
+      "highlights": [
+        "End-to-end Java/JSP development with SQL database integration and REST API consumption",
+        "Data-access optimization with MyBatis, improving application query performance",
+        "Agile delivery in cross-functional teams across the full software development lifecycle"
       ],
-      "description_es": [
-        "> Mi punto de partida fue el desarrollo. Años después, como pentester, iba a explotar exactamente las decisiones técnicas que aquí tomábamos sin pensar en sus consecuencias de seguridad.",
-        "- Stack: Java, JSP, SQL, MyBatis, REST APIs",
-        "- CI/CD: Jenkins, Git (migración desde SVN)"
+      "highlights_es": [
+        "Desarrollo Java/JSP de extremo a extremo con SQL y consumo de REST APIs",
+        "Optimización de acceso a datos con MyBatis, mejorando el rendimiento de queries",
+        "Entrega ágil en equipos multidisciplinares a lo largo del SDLC completo"
+      ],
+      "details": [
+        {
+          "label": "Architecture",
+          "label_es": "Arquitectura",
+          "text": "Java/JSP web applications with MVC pattern. SQL database integration using MyBatis as the data-access layer. RESTful API consumption and workflow automation.",
+          "text_es": "Aplicaciones web Java/JSP con patrón MVC. Integración con bases de datos SQL via MyBatis como capa de acceso a datos. Consumo de APIs REST y automatización de workflows.",
+          "stack": ["Java", "JSP", "SQL", "MyBatis", "REST APIs"]
+        },
+        {
+          "label": "CI/CD",
+          "label_es": "CI/CD",
+          "text": "Jenkins-based deployment pipelines. Team version control migration from SVN to Git.",
+          "text_es": "Pipelines de despliegue con Jenkins. Migración del control de versiones del equipo de SVN a Git.",
+          "stack": ["Jenkins", "Git"]
+        },
+        {
+          "label": "Key decisions",
+          "label_es": "Decisiones clave",
+          "text": "Adopted MyBatis over raw JDBC to centralise and standardise database access patterns. Led the team migration from SVN to Git.",
+          "text_es": "Adoptar MyBatis sobre JDBC directo para centralizar y estandarizar el acceso a datos. Lideré la migración del equipo de SVN a Git."
+        },
+        {
+          "label": "Learnings",
+          "label_es": "Aprendizajes",
+          "text": "Architecture decisions made without security in mind create expensive technical debt — a lesson reinforced years later from the attacker's perspective.",
+          "text_es": "Las decisiones de arquitectura tomadas sin considerar seguridad crean deuda técnica cara de corregir. Una lección reforzada años después desde la perspectiva del atacante."
+        }
       ]
     }
   ],

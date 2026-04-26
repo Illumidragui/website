@@ -2,3 +2,20 @@
   position: relative;
   padding-bottom: 4rem;
 }
+
+.list {
+  position: relative;
+  padding-left: 28px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.list::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--op-border);
+}
