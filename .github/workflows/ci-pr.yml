@@ -1,0 +1,43 @@
+name: CI PR — Quality Gate
+
+# Full security chain on every PR to main.
+# All three stages must pass before the branch can be merged.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  # Stage 1: Secret scan + SAST (SonarCloud) + SCA (Snyk)
+  security:
+    uses: Illumidragui/.github/.github/workflows/_reusable.code-security.yml@main
+    with:
+      language: node
+      run-tests: false
+      run-sonarcloud: true
+      run-snyk: true
+    secrets: inherit
+
+  # Stage 2: Build the Docusaurus site (also validates MDX and broken links)
+  build:
+    needs: security
+    uses: Illumidragui/.github/.github/workflows/_reusable.build-static.yml@main
+    with:
+      site-url: https://shengjunye.me
+    secrets: inherit
+
+  # Stage 3: Build container + Trivy scan + OWASP ZAP DAST
+  container-security:
+    needs: build
+    uses: Illumidragui/.github/.github/workflows/_reusable.container-security.yml@main
+    with:
+      image-name: illumidragui/syesite
+      dockerfile: Dockerfile.ci
+      app-port: '80'
+      zap-target: http://localhost:80
+    secrets: inherit
