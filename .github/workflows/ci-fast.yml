@@ -1,28 +1,54 @@
 name: CI Fast — dev push
 
-# Fast checks on every push to dev: secret scan + build verification.
-# The Docusaurus build acts as lint — it fails on broken links and invalid MDX.
+# Fast feedback on dev push: secret scan + Docusaurus build.
+# The build acts as lint — fails on broken links and invalid MDX.
+# Heavy scans (Snyk, SonarCloud, Trivy, ZAP) run only on PRs to save cost.
 
 on:
   push:
     branches: [dev]
+    paths:
+      - 'src/**'
+      - 'docs/**'
+      - 'blog/**'
+      - 'static/**'
+      - 'package*.json'
+      - 'Dockerfile*'
+      - 'docusaurus.config.js'
+      - '.github/workflows/**'
+
+concurrency:
+  group: ci-fast-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  security:
-    uses: Illumidragui/.github/.github/workflows/_reusable.code-security.yml@main
-    with:
-      language: node
-      run-tests: false
-      run-sonarcloud: false
-      run-snyk: false
-    secrets: inherit
+  gitleaks:
+    name: Gitleaks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
-    needs: security
-    uses: Illumidragui/.github/.github/workflows/_reusable.build-static.yml@main
-    with:
-      site-url: https://shengjunye.me
-    secrets: inherit
+    name: Build Docusaurus
+    runs-on: ubuntu-latest
+    needs: gitleaks
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+        env:
+          DOCUSAURUS_CONF_URL: https://shengjunye.me
