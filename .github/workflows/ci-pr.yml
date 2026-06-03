@@ -177,6 +177,16 @@ jobs:
       image-ref: illumidragui/syesite:${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
+      - name: Diagnose Docker credentials
+        env:
+          UNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "Username length: ${#UNAME}"
+          echo "Token length: ${#TOKEN}"
+          echo "Username line count: $(printf '%s' "$UNAME" | wc -l)"
+          echo "Token line count: $(printf '%s' "$TOKEN" | wc -l)"
+          printf '%s' "$UNAME" | xxd | tail -2
       - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
