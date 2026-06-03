@@ -182,10 +182,16 @@ jobs:
           UNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          echo "Username length: ${#UNAME} | Token length: ${#TOKEN}"
-          HTTP=$(curl -s -o /dev/null -w "%{http_code}" -u "$UNAME:$TOKEN" \
-            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${UNAME}/syesite:pull,push")
-          echo "Docker Hub auth HTTP status: $HTTP"
+          LOWER=$(echo "$UNAME" | tr '[:upper:]' '[:lower:]')
+          echo "Username: $UNAME (len ${#UNAME}) | lowercase: $LOWER | Token len: ${#TOKEN}"
+          H1=$(curl -s -o /tmp/r1.json -w "%{http_code}" -u "$UNAME:$TOKEN" \
+            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:illumidragui/syesite:pull,push")
+          echo "Auth with original case: $H1"
+          cat /tmp/r1.json | python3 -m json.tool 2>/dev/null || cat /tmp/r1.json
+          H2=$(curl -s -o /tmp/r2.json -w "%{http_code}" -u "$LOWER:$TOKEN" \
+            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:illumidragui/syesite:pull,push")
+          echo "Auth with lowercase: $H2"
+          cat /tmp/r2.json | python3 -m json.tool 2>/dev/null || cat /tmp/r2.json
       - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
