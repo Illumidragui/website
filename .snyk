@@ -21,4 +21,12 @@ ignore:
           Deployed container is nginx + static HTML, no Node.js runtime.
         expires: 2027-01-01T00:00:00.000Z
         created: 2026-06-03T00:00:00.000Z
+  SNYK-JS-SHELLQUOTE-16799355:
+    - '*':
+        reason: >-
+          shell-quote@1.8.3 via @docusaurus/core > react-dev-utils — used only
+          by the webpack dev server (npm start). Not present in the Docker image
+          which copies only the static build output to nginx:alpine.
+        expires: 2027-01-01T00:00:00.000Z
+        created: 2026-06-03T00:00:00.000Z
 patch: {}
