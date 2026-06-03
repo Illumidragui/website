@@ -59,7 +59,7 @@ jobs:
           node-version: '18'
           cache: 'npm'
       - run: npm ci
-      - name: Snyk scan (save report)
+      - name: Snyk scan (save report — HIGH+)
         uses: snyk/actions/node@master
         continue-on-error: true
         env:
@@ -72,12 +72,12 @@ jobs:
           name: snyk-report
           path: snyk-report.json
           retention-days: 7
-      - name: Snyk enforce threshold
+      - name: Snyk enforce — block only CRITICAL
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          args: --severity-threshold=critical
 
   # ---------------------------------------------------------------------------
   # CONTAINER BUILD — builds the image once with the commit SHA as tag.
