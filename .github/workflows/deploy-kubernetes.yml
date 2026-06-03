@@ -77,7 +77,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=critical
+          args: --severity-threshold=critical --policy-path=.snyk
 
   # ---------------------------------------------------------------------------
   # CONTAINER BUILD — builds the image once with the commit SHA as tag.

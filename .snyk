@@ -1,0 +1,24 @@
+# Snyk (https://snyk.io) policy file — documented risk acceptances
+# Review and renew these ignores before expiry.
+#
+# All ignores below are for build-time transitive dependencies of Docusaurus 2.x.
+# The deployed Docker image is built from nginx:alpine + static HTML files only.
+# No Node.js process runs in production; these CVEs require an active request
+# handler to exploit. Upgrade to Docusaurus 3.x to remove these permanently.
+version: v1.25.0
+ignore:
+  SNYK-JS-AXIOS-16298058:
+    - '*':
+        reason: >-
+          axios@0.25.0 via @docusaurus/core > wait-on — build-time only.
+          Deployed container is nginx + static HTML, no Node.js runtime.
+        expires: 2027-01-01T00:00:00.000Z
+        created: 2026-06-03T00:00:00.000Z
+  SNYK-JS-AXIOS-16299904:
+    - '*':
+        reason: >-
+          axios@0.25.0 via @docusaurus/core > wait-on — build-time only.
+          Deployed container is nginx + static HTML, no Node.js runtime.
+        expires: 2027-01-01T00:00:00.000Z
+        created: 2026-06-03T00:00:00.000Z
+patch: {}

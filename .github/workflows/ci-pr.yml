@@ -119,10 +119,9 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          # HIGH CVEs in Docusaurus 2.x (undici, shell-quote) are build-time only.
-          # The deployed Docker image is pure static HTML — no Node process runs in prod.
-          # Block on CRITICAL; HIGH findings are still captured in the report above.
-          args: --severity-threshold=critical
+          # .snyk policy file documents accepted risks (build-time Docusaurus deps).
+          # Upgrade to Docusaurus 3.x to remove the CVEs permanently.
+          args: --severity-threshold=critical --policy-path=.snyk
       - name: Snyk summary
         if: always()
         run: |
