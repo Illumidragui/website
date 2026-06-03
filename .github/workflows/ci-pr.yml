@@ -182,15 +182,14 @@ jobs:
           UNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          echo "Username length: ${#UNAME}"
-          echo "Token length: ${#TOKEN}"
-          echo "Username line count: $(printf '%s' "$UNAME" | wc -l)"
-          echo "Token line count: $(printf '%s' "$TOKEN" | wc -l)"
+          echo "Username length: ${#UNAME} | Token length: ${#TOKEN}"
           printf '%s' "$UNAME" | xxd | tail -2
-      - uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          printf '%s' "$TOKEN" | xxd | tail -3
+          printf '%s' "$TOKEN" | grep -qP '[^a-zA-Z0-9_\-]' && echo "TOKEN: contains unexpected chars" || echo "TOKEN: only [a-zA-Z0-9_-]"
+      - name: Docker login (password-stdin)
+        env:
+          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: echo "$TOKEN" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v5
         with:
