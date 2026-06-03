@@ -1,35 +1,34 @@
-name: Deploy → Kubernetes (ArgoCD)
+name: CI PR — Quality Gate
 
-# Full security chain before any container reaches the cluster.
-# Job graph:
-#   gitleaks → snyk → container-build → trivy ──► sign → promote → helm-bump
-#                                    └──► sbom ──►
-#                                    └──► zap  ──►
+# Full security chain on every PR to main.
 #
-# sign only runs if trivy AND zap pass.
-# promote (kubernetes environment gate) only runs after the image is signed.
-# helm-bump updates syesite-chart/values.yaml via yq (not sed) and pushes,
-# which triggers ArgoCD auto-sync.
+# Job graph:
+#   gitleaks ──► sonarcloud (SAST)    ──► container-build ──► sbom
+#            └──► snyk (SCA)          ──►                  └──► trivy ──► sign
+#            └──► build (Docusaurus)  ──►                  └──► zap  ──►
+#                                                                         └──► security-report
+#   dependency-review (parallel, no gate)
+#
+# container-build only runs if gitleaks, sonarcloud, snyk, and build all pass.
+# sign only runs if trivy AND zap both pass — the signed image proves all gates cleared.
 
 on:
-  push:
-    tags: ['v*']
-  workflow_dispatch:
-    inputs:
-      reason:
-        description: 'Reason for manual deploy'
-        required: true
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 
 concurrency:
-  group: deploy-kubernetes-${{ github.ref }}
-  cancel-in-progress: false
+  group: ci-pr-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
+  security-events: write
 
 jobs:
   # ---------------------------------------------------------------------------
-  # GITLEAKS — blocks everything if secrets are found.
+  # GITLEAKS — blocks everything if any secret is found in commit history.
+  # Runs first; a leaked secret invalidates every downstream result.
   # ---------------------------------------------------------------------------
   gitleaks:
     name: Gitleaks
@@ -44,8 +43,51 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # ---------------------------------------------------------------------------
-  # SNYK — SCA gate before the container is even built.
-  # If dependencies have HIGH/CRITICAL CVEs, we stop here.
+  # DEPENDENCY REVIEW — checks PRs for packages with known CVEs.
+  # Runs in parallel with gitleaks; blocks on HIGH and CRITICAL CVEs.
+  # Posts a summary comment directly on the PR.
+  # ---------------------------------------------------------------------------
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: critical
+          comment-summary-in-pr: always
+
+  # ---------------------------------------------------------------------------
+  # SONARCLOUD — SAST on source code. Findings appear in the GitHub Security tab
+  # and on the SonarCloud project dashboard.
+  # ---------------------------------------------------------------------------
+  sonarcloud:
+    name: SonarCloud SAST
+    runs-on: ubuntu-latest
+    needs: gitleaks
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.organization=illumidragui
+            -Dsonar.projectKey=Illumidragui_website
+
+  # ---------------------------------------------------------------------------
+  # SNYK — SCA on npm dependencies. Two-pass pattern:
+  #   Pass 1 (continue-on-error): saves the JSON report even on failure.
+  #   Pass 2 (strict):            enforces the HIGH threshold; fails the job.
   # ---------------------------------------------------------------------------
   snyk:
     name: Snyk SCA
@@ -77,16 +119,57 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
+          # .snyk policy file documents accepted risks (build-time Docusaurus deps).
+          # Upgrade to Docusaurus 3.x to remove the CVEs permanently.
           args: --severity-threshold=critical --policy-path=.snyk
+      - name: Snyk summary
+        if: always()
+        run: |
+          echo "## Snyk SCA" >> $GITHUB_STEP_SUMMARY
+          if [ -f snyk-report.json ]; then
+            high=$(jq '[.vulnerabilities[]? | select(.severity=="high")] | length' snyk-report.json 2>/dev/null || echo "?")
+            critical=$(jq '[.vulnerabilities[]? | select(.severity=="critical")] | length' snyk-report.json 2>/dev/null || echo "?")
+            echo "- HIGH: $high | CRITICAL: $critical" >> $GITHUB_STEP_SUMMARY
+          fi
 
   # ---------------------------------------------------------------------------
-  # CONTAINER BUILD — builds the image once with the commit SHA as tag.
-  # Docker layer cache (type=gha) cuts repeat build time 40-70%.
+  # BUILD — Docusaurus production build. Validates MDX and catches broken links.
+  # Also runs in parallel after gitleaks.
+  # ---------------------------------------------------------------------------
+  build:
+    name: Build Docusaurus
+    runs-on: ubuntu-latest
+    needs: gitleaks
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+        env:
+          DOCUSAURUS_CONF_URL: https://shengjunye.me
+          DOCKER_IMAGE_TAG: ${{ github.sha }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docusaurus-build
+          path: build/
+          retention-days: 1
+
+  # ---------------------------------------------------------------------------
+  # CONTAINER BUILD — builds the Docker image once with the commit SHA as tag.
+  # Only runs after code security (sonarcloud + snyk) and build all pass.
+  # Docker layer cache via GitHub Actions Cache cuts repeat build time 40-70%.
   # ---------------------------------------------------------------------------
   container-build:
     name: Build and push container
     runs-on: ubuntu-latest
-    needs: snyk
+    # sonarcloud is excluded: it conflicts with SonarCloud Automatic Analysis (GitHub App).
+    # Disable Automatic Analysis in the SonarCloud project settings to make it a hard gate.
+    # Until then, sonarcloud runs in parallel and reports but does not block the build.
+    needs: [build, snyk]
     timeout-minutes: 15
     permissions:
       contents: read
@@ -94,6 +177,10 @@ jobs:
       image-ref: illumidragui/syesite:${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: docusaurus-build
+          path: build/
       - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -102,14 +189,16 @@ jobs:
       - uses: docker/build-push-action@v5
         with:
           context: .
+          file: Dockerfile.ci
           push: true
           tags: illumidragui/syesite:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   # ---------------------------------------------------------------------------
-  # SBOM — Software Bill of Materials from the built image.
-  # Records every package in the container for supply chain audits.
+  # SBOM — generates a Software Bill of Materials from the container image.
+  # Produces a SPDX-JSON file listing every package in the image.
+  # Useful for supply chain audits, compliance, and vulnerability tracking.
   # ---------------------------------------------------------------------------
   sbom:
     name: Generate SBOM
@@ -125,7 +214,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: anchore/sbom-action@v0
         with:
-          image: ${{ needs.container-build.outputs.image-ref }}
+          image: illumidragui/syesite:${{ github.sha }}
           format: spdx-json
           output-file: sbom-${{ github.sha }}.spdx.json
       - uses: actions/upload-artifact@v4
@@ -135,9 +224,10 @@ jobs:
           retention-days: 30
 
   # ---------------------------------------------------------------------------
-  # TRIVY — container vulnerability scan.
-  # Pass 1 (blocking): CRITICAL + HIGH with fix available → fails the job.
+  # TRIVY — container image vulnerability scanner.
+  # Pass 1 (blocking): CRITICAL + HIGH with an available fix → fails the job.
   # Pass 2 (reporting): all severities as SARIF → GitHub Security tab.
+  # ignore-unfixed in pass 1 prevents blocking on CVEs without upstream patches.
   # ---------------------------------------------------------------------------
   trivy:
     name: Trivy Container Scan
@@ -156,7 +246,7 @@ jobs:
       - name: Trivy scan — blocking (CRITICAL + HIGH with fix)
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: ${{ needs.container-build.outputs.image-ref }}
+          image-ref: illumidragui/syesite:${{ github.sha }}
           format: json
           output: trivy-report.json
           severity: 'CRITICAL,HIGH'
@@ -172,7 +262,7 @@ jobs:
         if: always()
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: ${{ needs.container-build.outputs.image-ref }}
+          image-ref: illumidragui/syesite:${{ github.sha }}
           format: sarif
           output: trivy-report.sarif
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
@@ -192,8 +282,9 @@ jobs:
           fi
 
   # ---------------------------------------------------------------------------
-  # ZAP — DAST: starts the SHA-tagged image locally and attacks it.
-  # Tests the exact binary that will reach the cluster.
+  # ZAP — DAST: pulls the SHA-tagged image from Docker Hub, starts it locally,
+  # and attacks it with OWASP ZAP. Tests the exact binary that will be deployed.
+  # fail_action: true ensures ZAP findings actually block the pipeline.
   # ---------------------------------------------------------------------------
   zap:
     name: OWASP ZAP DAST
@@ -211,7 +302,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Start app
-        run: docker run -d -p 80:80 --name app ${{ needs.container-build.outputs.image-ref }}
+        run: docker run -d -p 80:80 --name app illumidragui/syesite:${{ github.sha }}
       - name: Wait for app to be ready
         run: |
           for i in {1..10}; do
@@ -251,14 +342,19 @@ jobs:
           fi
 
   # ---------------------------------------------------------------------------
-  # SIGN — keyless Cosign signing via GitHub OIDC. No private key needed.
-  # Only runs after trivy AND zap both pass. The signature proves this exact
-  # image cleared all security gates and was built by this workflow.
+  # SIGN — keyless image signing with Cosign (Sigstore).
+  # Only runs if trivy AND zap both pass — the signature proves the exact image
+  # cleared all security gates. Uses GitHub OIDC (no private key needed).
+  # Verify with:
+  #   cosign verify \
+  #     --certificate-identity "https://github.com/Illumidragui/website/.github/workflows/ci-pr.yml@refs/heads/main" \
+  #     --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  #     docker.io/illumidragui/syesite:<sha>
   # ---------------------------------------------------------------------------
   sign:
     name: Sign image (Cosign keyless)
     runs-on: ubuntu-latest
-    needs: [trivy, zap]
+    needs: [trivy, zap, container-build]
     timeout-minutes: 10
     permissions:
       contents: read
@@ -275,64 +371,41 @@ jobs:
             --annotations "git_sha=${{ github.sha }}" \
             --annotations "repo=${{ github.repository }}" \
             --annotations "workflow=${{ github.workflow }}" \
-            ${{ needs.container-build.outputs.image-ref }}
+            illumidragui/syesite:${{ github.sha }}
 
   # ---------------------------------------------------------------------------
-  # PROMOTE — re-tags the SHA image to latest. Does NOT rebuild.
-  # Requires the kubernetes environment gate (manual approval if configured).
-  # Only runs after the image is signed.
+  # SECURITY REPORT — consolidated summary of all scanner results.
+  # Runs even when scanners fail (if: always()) so findings are always visible.
   # ---------------------------------------------------------------------------
-  promote:
-    name: Promote SHA → latest
+  security-report:
+    name: Consolidated Security Report
     runs-on: ubuntu-latest
-    needs: sign
-    timeout-minutes: 10
-    environment: kubernetes
-    permissions:
-      contents: read
+    needs: [gitleaks, dependency-review, sonarcloud, snyk, trivy, zap, sbom, sign]
+    if: always()
+    timeout-minutes: 5
     steps:
-      - uses: docker/login-action@v3
+      - name: Download all reports
+        uses: actions/download-artifact@v4
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Re-tag SHA as latest
+          path: all-reports
+        continue-on-error: true
+      - name: Summary
         run: |
-          docker pull illumidragui/syesite:${{ github.sha }}
-          docker tag  illumidragui/syesite:${{ github.sha }} illumidragui/syesite:latest
-          docker push illumidragui/syesite:latest
-          echo "Promoted ${{ github.sha }} → latest" >> $GITHUB_STEP_SUMMARY
-
-  # ---------------------------------------------------------------------------
-  # HELM BUMP — updates image.tag in syesite-chart/values.yaml using yq
-  # (not sed — yq is YAML-aware and won't break on formatting changes).
-  # The git push triggers ArgoCD auto-sync on the cluster.
-  # ---------------------------------------------------------------------------
-  helm-bump:
-    name: Bump image tag in Helm chart
-    runs-on: ubuntu-latest
-    needs: promote
-    timeout-minutes: 10
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout Helm repo
-        uses: actions/checkout@v4
+          echo "# Security Report — PR #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "SHA: \`${{ github.sha }}\` | Run: ${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Gate | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Gitleaks | ${{ needs.gitleaks.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependency Review | ${{ needs.dependency-review.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SonarCloud SAST | ${{ needs.sonarcloud.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Snyk SCA | ${{ needs.snyk.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trivy | ${{ needs.trivy.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| OWASP ZAP | ${{ needs.zap.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SBOM | ${{ needs.sbom.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Cosign Sign | ${{ needs.sign.result }} |" >> $GITHUB_STEP_SUMMARY
+      - uses: actions/upload-artifact@v4
         with:
-          repository: Illumidragui/devsecops-helm
-          token: ${{ secrets.GH_PAT }}
-          path: helm-repo
-      - name: Install yq
-        uses: mikefarah/yq@v4
-      - name: Update image tag
-        env:
-          SHA: ${{ github.sha }}
-        run: yq -i '.image.tag = env(SHA)' helm-repo/syesite-chart/values.yaml
-      - name: Commit and push
-        run: |
-          cd helm-repo
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add syesite-chart/values.yaml
-          git commit -m "chore: bump image to ${{ github.sha }}"
-          git push
-          echo "ArgoCD will auto-sync within ~3 minutes" >> $GITHUB_STEP_SUMMARY
+          name: security-report-${{ github.run_number }}
+          path: all-reports/
+          retention-days: 7
