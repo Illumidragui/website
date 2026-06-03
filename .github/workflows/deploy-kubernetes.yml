@@ -154,7 +154,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Trivy scan — blocking (CRITICAL + HIGH with fix)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: ${{ needs.container-build.outputs.image-ref }}
           format: json
@@ -170,7 +170,7 @@ jobs:
           retention-days: 7
       - name: Trivy scan — full SARIF report
         if: always()
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: ${{ needs.container-build.outputs.image-ref }}
           format: sarif
