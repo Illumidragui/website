@@ -177,19 +177,19 @@ jobs:
       image-ref: illumidragui/syesite:${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
-      - name: Diagnose Docker credentials
+      - name: Test Docker Hub auth via curl
         env:
           UNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
           echo "Username length: ${#UNAME} | Token length: ${#TOKEN}"
-          printf '%s' "$UNAME" | xxd | tail -2
-          printf '%s' "$TOKEN" | xxd | tail -3
-          printf '%s' "$TOKEN" | grep -qP '[^a-zA-Z0-9_\-]' && echo "TOKEN: contains unexpected chars" || echo "TOKEN: only [a-zA-Z0-9_-]"
-      - name: Docker login (password-stdin)
-        env:
-          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        run: echo "$TOKEN" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          HTTP=$(curl -s -o /dev/null -w "%{http_code}" -u "$UNAME:$TOKEN" \
+            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${UNAME}/syesite:pull,push")
+          echo "Docker Hub auth HTTP status: $HTTP"
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v5
         with:
